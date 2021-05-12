@@ -1,0 +1,21 @@
+namespace: vault--prod
+
+resources:
+- ns.yaml
+- helm.yaml
+- raft.yaml
+- ingress.yaml
+
+patchesStrategicMerge:
+#- service-patch.yaml
+- raft-patch.yaml
+
+secretGenerator:
+- name: vault-server-tls
+  files:
+  - vault.ca=certs/vault--prod.ca
+  - vault.crt=certs/vault--prod.crt
+  - vault.key=certs/vault--prod.key
+
+generatorOptions:
+ disableNameSuffixHash: true

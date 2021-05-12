@@ -1,0 +1,46 @@
+global:
+  enabled: true
+  tlsDisable: false
+
+injector:
+  enabled: false
+
+server:
+  extraEnvironmentVars:
+    VAULT_CACERT: /vault/userconfig/vault-server-tls/vault.ca
+  standalone:
+    enabled: true
+    config: |
+      listener "tcp" {
+        address = "[::]:8200"
+        cluster_address = "[::]:8201"
+        tls_cert_file = "/vault/userconfig/vault-server-tls/vault.crt"
+        tls_key_file  = "/vault/userconfig/vault-server-tls/vault.key"
+        tls_client_ca_file = "/vault/userconfig/vault-server-tls/vault.ca"
+        tls_disable_client_certs = true
+      }
+
+      storage "file" {
+        path = "/vault/data"
+      }
+  extraVolumes:
+  - type: secret
+    name: vault-server-tls
+    path: /vault/userconfig
+  resources:
+    requests:
+      memory: 8Gi
+      cpu: 2000m
+    limits:
+      memory: 16Gi
+      cpu: 2000m
+  ha:
+    enabled: True
+    raft:
+      enabled: True
+
+
+ui:
+  enabled: false
+  serviceType: "LoadBalancer"
+

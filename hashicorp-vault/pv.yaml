@@ -1,0 +1,77 @@
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: tmp-neb0001
+spec:
+  capacity:
+    storage: 100Gi
+  accessModes:
+    - ReadWriteOnce
+  claimRef:
+    namespace: vault--prod
+    name: data-vault-0
+  hostPath:
+    path: /tmp/vault
+    type: DirectoryOrCreate
+  persistentVolumeReclaimPolicy: Recycle
+  nodeAffinity:
+    required:
+      nodeSelectorTerms:
+      - matchExpressions:
+        - key: kubernetes.io/hostname
+          operator: In
+          values:
+          - neb0001.slac.stanford.edu
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: tmp-neb0003
+spec:
+  capacity:
+    storage: 100Gi
+  accessModes:
+    - ReadWriteOnce
+  claimRef:
+    namespace: vault--prod
+    name: data-vault-1
+  hostPath:
+    path: /tmp/vault
+    type: DirectoryOrCreate
+  persistentVolumeReclaimPolicy: Recycle
+  nodeAffinity:
+    required:
+      nodeSelectorTerms:
+      - matchExpressions:
+        - key: kubernetes.io/hostname
+          operator: In
+          values:
+          - neb0003.slac.stanford.edu
+---
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: tmp-neb0007
+spec:
+  capacity:
+    storage: 100Gi
+  accessModes:
+    - ReadWriteOnce
+  claimRef:
+    namespace: vault--prod
+    name: data-vault-2
+  hostPath:
+    path: /tmp/vault
+    type: DirectoryOrCreate
+  persistentVolumeReclaimPolicy: Recycle
+  nodeAffinity:
+    required:
+      nodeSelectorTerms:
+      - matchExpressions:
+        - key: kubernetes.io/hostname
+          operator: In
+          values:
+          - neb0007.slac.stanford.edu
+

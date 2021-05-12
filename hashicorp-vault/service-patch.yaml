@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: vault-active
+  annotations:
+    metallb.universe.tf/address-pool: farm04-openstack
+spec:
+  type: ClusterIP
+  #externalTrafficPolicy: Cluster

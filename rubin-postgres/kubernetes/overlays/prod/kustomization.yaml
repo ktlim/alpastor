@@ -1,0 +1,29 @@
+
+namespace: rubin-postgres--prod
+
+bases:
+- ../../base
+
+resources:
+- ns.yaml
+- pv.yaml
+
+patchesStrategicMerge:
+- service-patch.yaml
+- postgres-patch.yaml
+
+secretGenerator:
+- name: postgres
+  files:
+  - etc/root-password
+  - etc/primary-password
+  - etc/user-password
+  literals:
+  - primary-username=repl
+  - username=rubin
+
+configMapGenerator:
+- name: postgres
+  literals:
+  - db_url=postgres
+  - database=rubin

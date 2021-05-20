@@ -1,0 +1,8 @@
+
+namespace: rubin-postgres--prod
+
+resources:
+- postgres.yaml
+- service.yaml
+
+

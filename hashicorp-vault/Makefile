@@ -1,5 +1,5 @@
 NAMESPACE ?= vault--prod
-HELM_BIN=../helm
+HELM_BIN ?= helm
 VAULT_ADDR=https://vault.slac.stanford.edu:8200
 
 unseal = \

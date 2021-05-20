@@ -67,3 +67,12 @@ path "identity/entity-alias"
 {
   capabilities = ["create", "read", "update", "delete", "list", "sudo"]
 }
+
+# policy allowing creation and configuration of databases and roles
+path "database/roles/*" {
+  capabilities = ["create", "read", "update", "delete", "list"] 
+}
+path "database/config/*" {
+  capabilities = ["create", "read", "update", "delete", "list"] 
+}
+

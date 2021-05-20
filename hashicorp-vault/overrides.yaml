@@ -3,7 +3,7 @@ global:
   tlsDisable: false
 
 injector:
-  enabled: false
+  enabled: true
 
 server:
   extraEnvironmentVars:

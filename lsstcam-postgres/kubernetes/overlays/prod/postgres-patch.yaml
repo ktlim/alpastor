@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: postgres
+spec:
+  replicas: 1
+  template:
+    spec:
+      securityContext:
+        fsGroup: 3391
+      containers:
+      - name: postgres
+        resources:
+          requests:
+            memory: "32Mi"
+            cpu: "8"
+          limits:
+            memory: "64Mi"
+            cpu: "16"
+  volumeClaimTemplates:
+  - metadata:
+      name: postgres-data
+    spec:
+      accessModes:
+      - ReadWriteOnce
+      resources:
+        requests:
+          storage: 1000Gi
+      storageClassName: postgres

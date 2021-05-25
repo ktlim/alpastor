@@ -1,0 +1,25 @@
+kind: PersistentVolume
+apiVersion: v1
+metadata:
+  name: neb0008--postgres-0
+  labels:
+    type: local
+spec:
+  storageClassName: postgres
+  capacity:
+    storage: 2000Gi
+  accessModes:
+    - ReadWriteOnce
+  claimRef:
+    name: postgres-data-postgres-0
+    namespace: lsstcam-postgres--prod
+  local:
+    path: /data/rubin-postgres--prod/postgres-0
+  nodeAffinity:
+    required:
+      nodeSelectorTerms:
+      - matchExpressions:
+        - key: kubernetes.io/hostname
+          operator: In
+          values:
+          - neb0008.slac.stanford.edu

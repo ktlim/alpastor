@@ -1,0 +1,110 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: postgres
+spec:
+  serviceName: "postgres"
+  updateStrategy:
+    type: RollingUpdate
+  replicas: 1
+  selector:
+    matchLabels:
+      role: postgres
+  template:
+    metadata:
+      labels:
+        role: postgres
+    spec:
+      terminationGracePeriodSeconds: 60
+      #securityContext:
+      #  fsGroup: 3591
+      #  runAsUser: 15693
+      #  runAsGroup: 3591
+      #securityContext:
+      #  fsGroup: 26
+        #sysctls:
+        #  - name: kernel.shmmax
+        #    value: "272629760"
+      containers:
+      - name: postgres
+        image: crunchydata/crunchy-postgres:centos8-13.2-4.6.2
+        #command: ["/bin/sh", "-ec", "while :; do echo '.'; sleep 5 ; done"]
+        env:
+        - name: MODE
+          value: postgres
+        - name: PG_MODE
+          value: primary
+        - name: PG_ROOT_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: postgres
+              key: root-password
+        - name: PG_PRIMARY_HOST
+          value: postgres-primary
+        - name: PG_PRIMARY_PORT
+          value: "5432"
+        #- name: PGDATA_PATH_OVERRIDE
+        #  value: "airflow"
+        - name: PGHOST
+          value: "/tmp"
+        - name: PG_PRIMARY_PORT
+          value: "5432"
+        - name: PG_PRIMARY_USER
+          valueFrom:
+            secretKeyRef:
+              name: postgres
+              key: primary-username
+        - name: PG_PRIMARY_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: postgres
+              key: primary-password
+        - name: PG_USER
+          valueFrom:
+            secretKeyRef:
+              name: postgres
+              key: username
+        - name: PG_PASSWORD
+          valueFrom:
+            secretKeyRef:
+             name: postgres
+             key: user-password
+        - name: PG_DATABASE
+          valueFrom:
+           configMapKeyRef:
+              name: postgres
+              key: database
+        ports:
+        - containerPort: 5432
+        #livenessProbe:
+        #  initialDelaySeconds: 5
+        #  exec:
+        #    command:
+        #      - " PGPASSWORD=\$PG_PASSWORD "
+        #      - " psql "
+        #      - " -h \$(hostname)"
+        #      - " -U \$PG_USER"
+        #      - "\$PG_DATABASE"
+        #      - ' -c "SELECT 1;"'
+        #readinessProbe:
+        #  initialDelaySeconds: 5
+        #  exec:
+        #    command:
+        #      - " PGPASSWORD=\$PG_PASSWORD "
+        #      - " psql "
+        #      - " -h \$(hostname)"
+        #      - " -U \$PG_USER"
+        #      - "\$PG_DATABASE"
+        #      - ' -c "SELECT 1;"'
+        volumeMounts:
+        - name: postgres-data
+          mountPath: /pgdata
+  volumeClaimTemplates:
+  - metadata:
+      name: postgres-data
+    spec:
+      accessModes: [ "ReadWriteOnce" ]
+      storageClassName: postgres
+      resources:
+        requests:
+          storage: 1000Gi

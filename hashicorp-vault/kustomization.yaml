@@ -5,6 +5,7 @@ resources:
 - helm.yaml
 - raft.yaml
 - ingress.yaml
+- service-account.yaml
 
 patchesStrategicMerge:
 #- service-patch.yaml

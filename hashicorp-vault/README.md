@@ -160,3 +160,51 @@ token_meta_username    ytl
 
 notice the policies include the 'admin' policy we defined prior
 
+
+Secret Stores
+
+enable the kv secret store:
+
+```
+vault secrets enable -path=secret kv-v2
+```
+
+Note that we are using the common secret root path /secret in the above. we could create multiple top levels
+
+enable the database secret store:
+
+```
+vault secrets enable database
+```
+
+enable the kubernetes secret store to facility secret injection into pods
+
+```
+
+export KUBECONFIG=~/.kube/contexts/k8s-master/vault--prod
+export SA_NAME=$(kubectl get sa vault-auth -o jsonpath="{.secrets[*]['name']}")
+export SA_JWT_TOKEN=$(kubectl get secret $SA_NAME -o jsonpath="{.data.token}" | base64 --decode; echo)
+export SA_CA_CRT=$(kubectl get secret $SA_NAME -o jsonpath="{.data['ca\.crt']}" | base64 --decode; echo)
+export K8S_HOST=10.96.0.1:443
+
+vault auth enable --path="k8s-master" kubernetes
+vault write auth/k8s-master/config \
+  token_reviewer_jwt="$SA_JWT_TOKEN" \
+  kubernetes_host="https://$K8S_HOST" \
+  kubernetes_ca_cert="$SA_CA_CRT"
+vault write auth/k8s-master/role/dex \
+  bound_service_account_names=dex \
+  bound_service_account_namespaces=auth-system \
+  policies=dexidp \
+  ttl=1h
+
+
+```
+
+debugging commands
+```
+kubectl run tmp --rm -i --tty --serviceaccount=vault-auth --image alpine:3.7
+KUBE_TOKEN=$(cat /var/run/secrets/kubernetes.io/serviceaccount/token)
+curl --insecure --request POST --data '{"jwt": "'"$KUBE_TOKEN"'", "role": "dex"}' https://vault.vault--prod.svc:8200/v1/auth/dexidp/login
+curl --cacert /tmp/SA_CA_CRT -H "Authorization: Bearer $SA_JWT_TOKEN" https://10.96.0.1:443
+```

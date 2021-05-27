@@ -1,0 +1,20 @@
+address-pools:
+- name: farm04-openstack
+  protocol: layer2
+  addresses:
+  - 172.23.99.146-172.23.99.156
+  speakers:
+  - neb0001.slac.stanford.edu
+  - neb0003.slac.stanford.edu
+  - neb0004.slac.stanford.edu
+  - neb0005.slac.stanford.edu
+  - neb0007.slac.stanford.edu
+  - neb0008.slac.stanford.edu
+  - neb0009.slac.stanford.edu
+  - neb0010.slac.stanford.edu
+- name: farm04-dmz
+  protocol: layer2
+  addresses:
+  - 134.79.129.193-134.79.129.223
+  speakers:
+  - ocio-gpu01

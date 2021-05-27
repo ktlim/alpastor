@@ -44,4 +44,4 @@ it is recommended that each dex client be registered under its own kv secret and
 
 It was chosen to utilise a self defined initContainer rather than annotations to support vault secret injection as this enables a cleaner separatation of configmaps that can be tracked with kustomize. However, one still has to be aware of changes in the vault secrets and re-apply dex manually in order to affect any changes.
 
-
+Also of note is that due to the need to tie the vault `auto_auth.method.mount_path` to match that of the registered kubernetes cluster endpoint; one will need to change this value in the file `kubernetes/overlays/{prod,dev}/etc/vault-config.hcl` to either `auth/k8s-api01` or `auth/k8s-master` depending upon which kubernetes cluster this gets deployed on, otherwise, authentication to vault will fail.` 

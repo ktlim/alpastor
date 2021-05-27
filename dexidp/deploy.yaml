@@ -17,10 +17,13 @@ spec:
       annotations:
         vault.hashicorp.com/agent-inject: "true"
         vault.hashicorp.com/service: https://vault.slac.stanford.edu
-        #vault.hashicorp.com/tls-server-name: vault.slac.stanford.edu # seems to fault with tls
+        # vault.hashicorp.com/tls-server-name: vault.slac.stanford.edu # seems to fault with tls
+        ## this, unfortuantely, needs to match the cluster name, eitehr k8s-api01 or k8s-master, to match where we're runnign this
+        # vault.hashicorp.com/auth-path: auth/k8s-master
         vault.hashicorp.com/auth-path: auth/k8s-api01
         vault.hashicorp.com/role: dex
         #vault.hashicorp.com/log-level: debug
+        vault.hashicorp.com/secret-volume-path-config.yaml: /etc/dex/cfg/
         vault.hashicorp.com/agent-inject-secret-config.yaml: secret/dexidp/connectors/ldap-ad
         vault.hashicorp.com/agent-inject-template-config.yaml: |
           issuer: https://dex.slac.stanford.edu
@@ -124,8 +127,8 @@ spec:
           containerPort: 32000
           protocol: TCP
         volumeMounts:
-        - name: config
-          mountPath: /etc/dex/cfg
+        #- name: config
+        #  mountPath: /etc/dex/cfg
         - name: certs
           mountPath: /etc/dex/tls
           readOnly: true

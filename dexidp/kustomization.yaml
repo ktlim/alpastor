@@ -16,9 +16,9 @@ secretGenerator:
   - tls.crt=certs/dex-dev.crt
   - tls.key=certs/dex-dev.key
   - certs/adfs.slac.stanford.edu.cer
-- name: dex-config
-  files:
-  - etc/config.yaml
+#- name: dex-config
+#  files:
+#  - etc/config.yaml
 
 generatorOptions:
  disableNameSuffixHash: true

@@ -6,6 +6,7 @@ resources:
 - rbac.yaml 
 - deploy.yaml  
 - endpoint.yaml  
+- cm.yaml
 
 #patchesStrategicMerge:
 #- vault.yaml

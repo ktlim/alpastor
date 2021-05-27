@@ -1,0 +1,34 @@
+#!/usr/bin/expect
+
+
+# on cent7, env is in /usr/bin -- /bin/env expect
+
+
+# this script takes two input args: input keyfile and output csrfile
+
+set shortname [lindex $argv 0]
+set fqdn $shortname.slac.stanford.edu
+set key $shortname.key
+set csr $shortname.csr
+
+exec >@stdout 2>@stderr openssl genrsa -out $key 2048
+spawn openssl req -new -key $key -out $csr
+expect "Country Name (2 letter code)"
+send "US\r"
+expect "State or Province Name (full name)"
+send "California\r"
+expect "Locality Name (eg, city)"
+send "Menlo Park\r"
+expect "Organization Name (eg, company)"
+send "SLAC National Accelerator Laboratory\r"
+expect "Organizational Unit Name (eg, section)"
+send "Computing Services\r"
+expect "Common Name (eg, your name or your server's hostname)"
+send "$fqdn\r"
+expect "Email Address "
+send "\r" 
+expect "A challenge password "
+send "\r"
+expect "An optional company name"
+send "\r"
+interact

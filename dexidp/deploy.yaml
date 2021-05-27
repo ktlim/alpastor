@@ -126,9 +126,6 @@ spec:
         volumeMounts:
         - name: config
           mountPath: /etc/dex/cfg
-        #- name: ca-certs
-        #  mountPath: /etc/dex/tls
-        #  readOnly: true
         - name: certs
           mountPath: /etc/dex/tls
           readOnly: true
@@ -139,26 +136,6 @@ spec:
           items:
           - key: config.yaml
             path: config.yaml
-      #- name: ca-certs
-      #  secret:
-      #    secretName: ca-certs
-      #    items:
-      #    - key: ca-key.pem
-      #      path: ca-key.pem
-      #    - key: ca.pem
-      #      path: ca.pem
-      #    - key: ca.srl
-      #      path: ca.srl
-      #    - key: cert.pem
-      #      path: cert.pem
-      #      #path: tls.crt
-      #    - key: csr.pem
-      #      path: csr.pem
-      #    - key: key.pem
-      #      path: key.pem
-      #      #path: tls.key
-      #    - key: req.cnf
-      #      path: req.cnd
       - name: certs
         secret:
           secretName: dex-certs

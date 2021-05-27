@@ -133,7 +133,7 @@ spec:
           mountPath: /vault/agent
         - name: vault-config
           mountPath: /vault/config
-        - name: config
+        - name: dex-template
           mountPath: /vault/templates/
       containers:
       - image: quay.io/dexidp/dex:v2.19.0
@@ -154,15 +154,14 @@ spec:
       volumes:
       - name: vault-config
         configMap:
-          name: vault-config
+          name: vault
       - name: vault-agent
         emptyDir: {}
       - name: vault-secrets
         emptyDir: {}
-      - name: config
-        secret:
+      - name: dex-template
         configMap: 
-          name: dex-config
+          name: dex
       - name: certs
         secret:
           secretName: dex-certs

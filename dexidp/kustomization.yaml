@@ -6,7 +6,7 @@ resources:
 - rbac.yaml 
 - deploy.yaml  
 - endpoint.yaml  
-- cm.yaml
+#- cm.yaml
 
 #patchesStrategicMerge:
 #- vault.yaml
@@ -21,6 +21,15 @@ secretGenerator:
 #  files:
 #  - etc/config.yaml
 
-generatorOptions:
- disableNameSuffixHash: true
+configMapGenerator:
+- name: vault
+  files:
+  - config.hcl=etc/vault-config.hcl
+- name: dex
+  files:
+  - config.yaml=etc/dex-config.yaml
+
+
+#generatorOptions:
+# disableNameSuffixHash: true
 

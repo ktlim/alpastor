@@ -181,18 +181,30 @@ enable the kubernetes secret store to facility secret injection into pods
 
 ```
 
+# generic
+export K8S_HOST=10.96.0.1:443
+
+# k8s-master cluster
+export K8S_CLUSTER=k8s-master
+export K8S_HOST=k8s-master.slac.stanford.edu:6443
 export KUBECONFIG=~/.kube/contexts/k8s-master/vault--prod
+
+# k8s-api01 cluster
+export K8S_CLUSTER=k8s-api01
+export K8S_HOST=k8s-api01.slac.stanford.edu:16443
+export KUBECONFIG=~/.kube/contexts/vault--prod@slac
+
+# common
 export SA_NAME=$(kubectl get sa vault-auth -o jsonpath="{.secrets[*]['name']}")
 export SA_JWT_TOKEN=$(kubectl get secret $SA_NAME -o jsonpath="{.data.token}" | base64 --decode; echo)
 export SA_CA_CRT=$(kubectl get secret $SA_NAME -o jsonpath="{.data['ca\.crt']}" | base64 --decode; echo)
-export K8S_HOST=10.96.0.1:443
 
-vault auth enable --path="k8s-master" kubernetes
-vault write auth/k8s-master/config \
+vault auth enable --path="$K8S_CLUSTER" kubernetes
+vault write auth/$K8S_CLUSTER/config \
   token_reviewer_jwt="$SA_JWT_TOKEN" \
   kubernetes_host="https://$K8S_HOST" \
   kubernetes_ca_cert="$SA_CA_CRT"
-vault write auth/k8s-master/role/dex \
+vault write auth/$K8S_CLUSTER/role/dex \
   bound_service_account_names=dex \
   bound_service_account_namespaces=auth-system \
   policies=dexidp \
@@ -205,6 +217,6 @@ debugging commands
 ```
 kubectl run tmp --rm -i --tty --serviceaccount=vault-auth --image alpine:3.7
 KUBE_TOKEN=$(cat /var/run/secrets/kubernetes.io/serviceaccount/token)
-curl --insecure --request POST --data '{"jwt": "'"$KUBE_TOKEN"'", "role": "dex"}' https://vault.vault--prod.svc:8200/v1/auth/dexidp/login
-curl --cacert /tmp/SA_CA_CRT -H "Authorization: Bearer $SA_JWT_TOKEN" https://10.96.0.1:443
+curl --insecure --request POST --data '{"jwt": "'"$KUBE_TOKEN"'", "role": "dex"}' https://vault.slac.stanford.edu/v1/auth/k8s-api01/login
+curl --cacert /var/run/secrets/kubernetes.io/serviceaccount/ca.crt -H "Authorization: Bearer $KUBE_TOKEN" https://10.96.0.1:443/
 ```

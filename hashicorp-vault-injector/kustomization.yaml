@@ -1,0 +1,7 @@
+namespace: vault--prod
+
+resources:
+- ns.yaml
+- deploy.yaml
+- service-account.yaml
+

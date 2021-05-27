@@ -1,0 +1,25 @@
+namespace: auth-system
+
+resources:
+# dex
+- ns.yaml 
+- rbac.yaml 
+- deploy.yaml  
+- endpoint.yaml  
+
+#patchesStrategicMerge:
+#- vault.yaml
+
+secretGenerator:
+- name: dex-certs
+  files:
+  - tls.crt=certs/dex-dev.crt
+  - tls.key=certs/dex-dev.key
+  - certs/adfs.slac.stanford.edu.cer
+- name: dex-config
+  files:
+  - etc/config.yaml
+
+generatorOptions:
+ disableNameSuffixHash: true
+

@@ -1,0 +1,23 @@
+namespace: auth-system
+
+bases:
+- ../../base/
+
+resources:
+- ns.yaml
+
+secretGenerator:
+- name: dex-certs
+  files:
+  - tls.crt=certs/dex-dev.crt
+  - tls.key=certs/dex-dev.key
+  - certs/adfs.slac.stanford.edu.cer
+
+configMapGenerator:
+- name: vault
+  files:
+  - config.hcl=etc/vault-config.hcl
+- name: dex
+  files:
+  - config.yaml=etc/dex-config.yaml
+

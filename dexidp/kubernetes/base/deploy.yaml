@@ -41,8 +41,6 @@ spec:
           containerPort: 32000
           protocol: TCP
         volumeMounts:
-        - name: vault-config
-          mountPath: /vault/config
         - name: vault-secrets
           mountPath: /etc/dex/cfg/
         - name: certs

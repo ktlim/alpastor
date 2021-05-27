@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: k8s-master-ingress-nginx-controller
+spec:
+  template:
+    spec:
+      containers:
+      - name: controller
+        args:
+        - /nginx-ingress-controller
+        - --publish-service=$(POD_NAMESPACE)/k8s-master-ingress-nginx-controller
+        - --election-id=ingress-controller-leader
+        - --ingress-class=nginx
+        - --configmap=ingress-nginx/k8s-master-ingress-nginx-controller
+        - --validating-webhook=:8443
+        - --validating-webhook-certificate=/usr/local/certificates/cert
+        - --validating-webhook-key=/usr/local/certificates/key
+        - --enable-ssl-passthrough
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
+              - key: role/ingress
+                operator: In
+                values:
+                - 'true'

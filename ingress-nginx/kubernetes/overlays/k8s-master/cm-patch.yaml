@@ -1,0 +1,11 @@
+# Source: ingress-nginx/templates/controller-configmap.yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: k8s-master-ingress-nginx-controller
+data:
+  use-forwarded-headers: "true"
+  compute-full-forwarded-for: "true"
+  #enable-real-ip: "true"
+  #real-ip-header: "X-Original-Forwarded-For"
+

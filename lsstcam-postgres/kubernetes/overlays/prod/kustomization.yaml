@@ -19,7 +19,7 @@ secretGenerator:
   - etc/primary-password
   - etc/user-password
   literals:
-  - primary-username=repl
+  - primary-username=pgbouncer
   - username=rubin
 
 configMapGenerator:

@@ -12,3 +12,18 @@ spec:
     role: postgres
   type: LoadBalancer
 
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: pgbouncer
+  labels:
+    name: pgbouncer
+spec:
+  ports:
+  - port: 6432
+    targetPort: 6432
+  selector:
+    role: pgbouncer
+  type: LoadBalancer
+

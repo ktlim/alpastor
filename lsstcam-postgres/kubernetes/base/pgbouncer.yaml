@@ -1,0 +1,84 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: pgbouncer
+spec:
+  serviceName: "pgbouncer"
+  updateStrategy:
+    type: RollingUpdate
+  replicas: 1
+  selector:
+    matchLabels:
+      role: pgbouncer
+  template:
+    metadata:
+      labels:
+        role: pgbouncer
+    spec:
+      terminationGracePeriodSeconds: 60
+      #securityContext:
+      #  fsGroup: 3591
+      #  runAsUser: 15693
+      #  runAsGroup: 3591
+      #securityContext:
+      #  fsGroup: 26
+        #sysctls:
+        #  - name: kernel.shmmax
+        #    value: "272629760"
+      initContainers:
+      - name: users
+        image: crunchydata/crunchy-postgres:centos8-13.2-4.6.2
+        command:
+        - /bin/sh 
+        args:
+        - "-c"
+        - "/usr/bin/psql -AtX -h postgres -U pgbouncer -c \"SELECT CONCAT('\\\"', usename, '\\\" \\\"' ,passwd, '\\\"') FROM pg_shadow;\" > /pgconf/users.txt " 
+        env:
+        - name: PGPASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: postgres
+              key: primary-password
+        volumeMounts:
+        - name: postgres-conf
+          mountPath: /pgconf
+      containers:
+      - name: pgbouncer
+        image: crunchydata/crunchy-pgbouncer:centos8-13.2-4.6.2
+        #command: ["/bin/sh", "-ec", "while :; do echo '.'; sleep 5 ; done"]
+        env:
+        - name: PGBOUNCER_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: postgres
+              key: primary-password
+        - name: PG_SERVICE
+          value: postgres
+        ports:
+        - containerPort: 5432
+        #livenessProbe:
+        #  initialDelaySeconds: 5
+        #  exec:
+        #    command:
+        #      - " PGPASSWORD=\$PG_PASSWORD "
+        #      - " psql "
+        #      - " -h \$(hostname)"
+        #      - " -U \$PG_USER"
+        #      - "\$PG_DATABASE"
+        #      - ' -c "SELECT 1;"'
+        #readinessProbe:
+        #  initialDelaySeconds: 5
+        #  exec:
+        #    command:
+        #      - " PGPASSWORD=\$PG_PASSWORD "
+        #      - " psql "
+        #      - " -h \$(hostname)"
+        #      - " -U \$PG_USER"
+        #      - "\$PG_DATABASE"
+        #      - ' -c "SELECT 1;"'
+        volumeMounts: 
+        - name: postgres-conf
+          mountPath: /pgconf
+      volumes:
+      - name: postgres-conf
+        emptyDir: {}

@@ -55,7 +55,7 @@ spec:
         - name: PG_SERVICE
           value: postgres
         - name: DEFAULT_POOL_SIZE
-          value: 12
+          value: 32
         - name: MAX_CLIENT_CONN
           value: 1000
         - name: POOL_MODE

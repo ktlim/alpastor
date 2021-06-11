@@ -12,10 +12,10 @@ spec:
       - name: postgres
         resources:
           requests:
-            memory: "32Mi"
+            memory: "32Gi"
             cpu: "8"
           limits:
-            memory: "64Mi"
+            memory: "64Gi"
             cpu: "16"
   volumeClaimTemplates:
   - metadata:

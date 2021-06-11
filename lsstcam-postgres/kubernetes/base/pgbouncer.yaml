@@ -54,6 +54,13 @@ spec:
               key: primary-password
         - name: PG_SERVICE
           value: postgres
+        - name: DEFAULT_POOL_SIZE
+          value: 32
+        - name: MAX_CLIENT_CONN
+          value: 1000
+        - name: POOL_MODE
+          value: transaction
+
         ports:
         - containerPort: 5432
         #livenessProbe:

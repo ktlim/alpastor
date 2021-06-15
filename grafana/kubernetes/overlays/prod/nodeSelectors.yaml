@@ -1,0 +1,10 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: grafana
+spec:
+  template:
+    spec:
+      nodeSelector:
+        group: infra
+        monitoring/grafana: 'true'

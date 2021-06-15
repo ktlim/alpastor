@@ -1,0 +1,24 @@
+kind: PersistentVolume
+apiVersion: v1
+metadata:
+  name: grafana-prod--data
+  labels:
+    type: local
+spec:
+  storageClassName: grafana-prod--data
+  capacity:
+    storage: 10Gi
+  accessModes:
+    - ReadWriteOnce
+  #hostPath:
+  #  path: /opt/grafana
+  local:
+    path: /opt/grafana/
+  nodeAffinity:
+    required:
+      nodeSelectorTerms:
+      - matchExpressions:
+        - key: kubernetes.io/hostname
+          operator: In
+          values:
+          - influxdb04

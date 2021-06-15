@@ -1,0 +1,73 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: grafana
+  labels:
+    app: grafana
+spec:
+  type: ClusterIP
+  ports:
+    - name: service
+      port: 80
+      protocol: TCP
+      targetPort: 3000
+  selector:
+    app: grafana
+
+---
+
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: grafana-dev
+  annotations:
+    #cert-manager.io/cluster-issuer: letsencrypt-prod
+    nginx.ingress.kubernetes.io/whitelist-source-range: 134.79.0.0/16,172.16.0.0/12
+    nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+    nginx.ingress.kubernetes.io/configuration-snippet: |
+      more_clear_headers 'X-Frame-Options';
+    #  add_header 'X-Frame-Options: "allow-from http://network.slac.stanford.edu";'
+    #  add_header 'X-Frame-Options: "allow-from https://network.slac.stanford.edu";'
+spec:
+  tls:
+  - secretName: tls
+    hosts:
+    - grafana-dev.slac.stanford.edu
+  rules:
+  - host: grafana-dev.slac.stanford.edu
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: grafana
+          servicePort: 80
+
+
+---
+
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: grafana
+  annotations:
+    #cert-manager.io/cluster-issuer: letsencrypt-prod
+    nginx.ingress.kubernetes.io/whitelist-source-range: 134.79.0.0/16,172.16.0.0/12,98.35.19.203/32
+    nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+    nginx.ingress.kubernetes.io/configuration-snippet: |
+      more_clear_headers 'X-Frame-Options';
+      #add_header "X-Frame-Options: ALLOW-FROM http://network.slac.stanford.edu/";
+      #add_header "X-Frame-Options: ALLOW-FROM https://network.slac.stanford.edu/";
+spec:
+  tls:
+  - secretName: grafana-tls
+    hosts:
+    - grafana.slac.stanford.edu
+  rules:
+  - host: grafana.slac.stanford.edu
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: grafana
+          servicePort: 80
+

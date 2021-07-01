@@ -1,0 +1,112 @@
+---
+
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: grafana
+  labels:
+    app: grafana
+spec:
+  serviceName: grafana
+  replicas: 1
+  selector:
+    matchLabels:
+      app: grafana
+  template:
+    metadata:
+      labels:
+        app: grafana
+    spec:
+      securityContext:
+        fsGroup: 472
+        runAsUser: 472
+      initContainers:
+        - name: oidc
+          image: bhgedigital/envsubst
+          command:
+            - /bin/sh
+            - "-c"
+            - envsubst </in/grafana.ini >/out/grafana.ini
+          env:
+            - name: CLIENT_ID
+              valueFrom:
+                secretKeyRef:
+                  name: grafana
+                  key: oidc-id
+            - name: CLIENT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: grafana
+                  key: oidc-secret
+            - name: ROOT_URL
+              value: https://grafana-dev.slac.stanford.edu
+            - name: OIDC_URL
+              value: https://dex.slac.stanford.edu
+          volumeMounts:
+            - name: template
+              mountPath: /in
+            - name: config
+              mountPath: /out
+      containers:
+        - name: grafana
+          image: "grafana/grafana:6.5.0"
+          imagePullPolicy: IfNotPresent
+          volumeMounts:
+            - name: config
+              mountPath: "/etc/grafana/grafana.ini"
+              subPath: grafana.ini
+            - name: data
+              mountPath: "/var/lib/grafana"
+            - name: admin-password
+              mountPath: "/run/secrets/admin_password"
+          ports:
+            - name: service
+              containerPort: 80
+              protocol: TCP
+            - name: grafana
+              containerPort: 3000
+              protocol: TCP
+          env:
+            - name: GF_SECURITY_ADMIN_USER
+              valueFrom:
+                secretKeyRef:
+                  name: grafana
+                  key: admin-user
+            - name: GF_SECURITY_ADMIN_PASSWORD__FILE
+              value: /run/secrets/admin_password/admin-password
+            - name: GF_INSTALL_PLUGINS
+              value: http://yum.slac.stanford.edu/grafana/grafana-piechart-panel.zip;grafana-piechart-panel
+          livenessProbe:
+            failureThreshold: 10
+            httpGet:
+              path: /api/health
+              port: 3000
+            initialDelaySeconds: 60
+            timeoutSeconds: 30
+          readinessProbe:
+            httpGet:
+              path: /api/health
+              port: 3000
+          resources:
+            {}
+      volumes:
+        - name: config
+          emptyDir: {}
+        - name: template
+          configMap:
+            name: grafana
+        - name: admin-password
+          secret:
+            secretName: grafana
+            items:
+              - key: admin-password
+                path: admin-password
+  volumeClaimTemplates:
+  - metadata:
+      name: data
+    spec:
+      accessModes: [ "ReadWriteOnce" ]
+      storageClassName: "grafana-dev--data"
+      resources:
+        requests:
+          storage: 10Gi

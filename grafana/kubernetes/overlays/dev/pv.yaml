@@ -1,0 +1,25 @@
+kind: PersistentVolume
+apiVersion: v1
+metadata:
+  name: grafana-dev--data
+  labels:
+    type: local
+spec:
+  storageClassName: grafana-dev--data
+  capacity:
+    storage: 10Gi
+  accessModes:
+    - ReadWriteOnce
+  local:
+    path: /data/grafana-dev/
+  claimRef:
+    namespace: grafana--dev
+    name: data-grafana-0
+  nodeAffinity:
+    required:
+      nodeSelectorTerms:
+      - matchExpressions:
+        - key: kubernetes.io/hostname
+          operator: In
+          values:
+          - neb0004.slac.stanford.edu

@@ -76,3 +76,7 @@ path "database/config/*" {
   capabilities = ["create", "read", "update", "delete", "list"] 
 }
 
+# Manage raft storage
+path "sys/storage/raft/*" {
+  capabilities = ["create", "read", "update", "delete", "list"]
+}

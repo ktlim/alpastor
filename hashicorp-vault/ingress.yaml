@@ -17,5 +17,5 @@ spec:
       paths:
       - path: /
         backend:
-          serviceName: vault-0
+          serviceName: vault-active
           servicePort: 8200

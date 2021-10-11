@@ -1,0 +1,10 @@
+namespace: ingress-nginx
+
+resources:
+- ns.yaml
+- helm.yaml
+
+patchesStrategicMerge: 
+- daemonset-patch.yaml
+- service-patch.yaml
+- cm-patch.yaml

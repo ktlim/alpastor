@@ -1,11 +1,13 @@
-HELM ?= ../../helm
+HELM ?= helm
+INGRESS_NGINX_VERSION ?= 3.34.0
 NS ?= ingress-nginx
+CLUSTER_NAME ?= k8s-master
+
 
 helm:
 	$(HELM) repo add ingress-nginx https://kubernetes.github.io/ingress-nginx
 	$(HELM) repo update
-	#$(HELM) template "k8s-master" nginx-stable/nginx-ingress --set controller.hostNetwork=true,controller.service.type="",controller.kind=DaemonSet > helm.yaml
-	$(HELM) template k8s-master ingress-nginx/ingress-nginx --set controller.hostNetwork=true,controller.kind=DaemonSet > helm.yaml
+	$(HELM) template $(CLUSTER_NAME) ingress-nginx/ingress-nginx --version $(INGRESS_NGINX_VERSION) --namespace $(NS) --set controller.hostNetwork=true,controller.kind=DaemonSet > helm.yaml
 
 apply:
 	kubectl -n $(NS) apply -k .

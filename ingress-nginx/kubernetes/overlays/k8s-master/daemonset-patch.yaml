@@ -2,6 +2,7 @@ apiVersion: apps/v1
 kind: DaemonSet
 metadata:
   name: k8s-master-ingress-nginx-controller
+  namespace: ingress-nginx
 spec:
   template:
     spec:

@@ -4,5 +4,6 @@ metadata:
   annotations:
     do-loadbalancer-enable-proxy-protocol: "true"
   name: k8s-master-ingress-nginx-controller
+  namespace: ingress-nginx
 spec:
   type: NodePort

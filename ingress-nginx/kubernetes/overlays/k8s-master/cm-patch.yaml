@@ -3,6 +3,7 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: k8s-master-ingress-nginx-controller
+  namespace: ingress-nginx
 data:
   use-forwarded-headers: "true"
   compute-full-forwarded-for: "true"

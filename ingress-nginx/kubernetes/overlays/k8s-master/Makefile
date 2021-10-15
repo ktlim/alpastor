@@ -14,3 +14,6 @@ apply:
 
 clean:
 	kubectl -n $(NS) delete -k .
+
+clear-webhook:
+	kubectl delete -A ValidatingWebhookConfiguration $(CLUSTER_NAME)-ingress-nginx-admission

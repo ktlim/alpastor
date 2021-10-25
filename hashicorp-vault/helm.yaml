@@ -8,7 +8,7 @@ metadata:
   name: vault
   namespace: vault--prod
   labels:
-    helm.sh/chart: vault-0.11.0
+    helm.sh/chart: vault-0.17.0
     app.kubernetes.io/name: vault
     app.kubernetes.io/instance: vault
     app.kubernetes.io/managed-by: Helm
@@ -38,7 +38,7 @@ metadata:
   name: vault
   namespace: vault--prod
   labels:
-    helm.sh/chart: vault-0.11.0
+    helm.sh/chart: vault-0.17.0
     app.kubernetes.io/name: vault
     app.kubernetes.io/instance: vault
     app.kubernetes.io/managed-by: Helm
@@ -50,7 +50,7 @@ metadata:
   name: vault-config
   namespace: vault--prod
   labels:
-    helm.sh/chart: vault-0.11.0
+    helm.sh/chart: vault-0.17.0
     app.kubernetes.io/name: vault
     app.kubernetes.io/instance: vault
     app.kubernetes.io/managed-by: Helm
@@ -113,7 +113,7 @@ kind: ClusterRoleBinding
 metadata:
   name: vault-server-binding
   labels:
-    helm.sh/chart: vault-0.11.0
+    helm.sh/chart: vault-0.17.0
     app.kubernetes.io/name: vault
     app.kubernetes.io/instance: vault
     app.kubernetes.io/managed-by: Helm
@@ -133,7 +133,7 @@ metadata:
   namespace: vault--prod
   name: vault-discovery-role
   labels:
-    helm.sh/chart: vault-0.11.0
+    helm.sh/chart: vault-0.17.0
     app.kubernetes.io/name: vault
     app.kubernetes.io/instance: vault
     app.kubernetes.io/managed-by: Helm
@@ -149,7 +149,7 @@ metadata:
   name: vault-discovery-rolebinding
   namespace: vault--prod
   labels:
-    helm.sh/chart: vault-0.11.0
+    helm.sh/chart: vault-0.17.0
     app.kubernetes.io/name: vault
     app.kubernetes.io/instance: vault
     app.kubernetes.io/managed-by: Helm
@@ -191,7 +191,7 @@ metadata:
   name: vault-active
   namespace: vault--prod
   labels:
-    helm.sh/chart: vault-0.11.0
+    helm.sh/chart: vault-0.17.0
     app.kubernetes.io/name: vault
     app.kubernetes.io/instance: vault
     app.kubernetes.io/managed-by: Helm
@@ -220,7 +220,7 @@ metadata:
   name: vault-standby
   namespace: vault--prod
   labels:
-    helm.sh/chart: vault-0.11.0
+    helm.sh/chart: vault-0.17.0
     app.kubernetes.io/name: vault
     app.kubernetes.io/instance: vault
     app.kubernetes.io/managed-by: Helm
@@ -249,7 +249,7 @@ metadata:
   name: vault-internal
   namespace: vault--prod
   labels:
-    helm.sh/chart: vault-0.11.0
+    helm.sh/chart: vault-0.17.0
     app.kubernetes.io/name: vault
     app.kubernetes.io/instance: vault
     app.kubernetes.io/managed-by: Helm
@@ -278,7 +278,7 @@ metadata:
   name: vault
   namespace: vault--prod
   labels:
-    helm.sh/chart: vault-0.11.0
+    helm.sh/chart: vault-0.17.0
     app.kubernetes.io/name: vault
     app.kubernetes.io/instance: vault
     app.kubernetes.io/managed-by: Helm
@@ -348,7 +348,7 @@ spec:
       containers:
         - name: sidecar-injector
           
-          image: "hashicorp/vault-k8s:0.10.0"
+          image: "hashicorp/vault-k8s:0.14.0"
           imagePullPolicy: "IfNotPresent"
           securityContext:
             allowPrivilegeEscalation: false
@@ -362,7 +362,7 @@ spec:
             - name: AGENT_INJECT_VAULT_AUTH_PATH
               value: auth/kubernetes
             - name: AGENT_INJECT_VAULT_IMAGE
-              value: "vault:1.7.0"
+              value: "hashicorp/vault:1.8.4"
             - name: AGENT_INJECT_TLS_AUTO
               value: vault-agent-injector-cfg
             - name: AGENT_INJECT_TLS_AUTO_HOSTS
@@ -381,7 +381,13 @@ spec:
               value: "128Mi"
             - name: AGENT_INJECT_DEFAULT_TEMPLATE
               value: "map"
+            - name: AGENT_INJECT_TEMPLATE_CONFIG_EXIT_ON_RETRY_FAILURE
+              value: "true"
             
+            - name: POD_NAME
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.name
           args:
             - agent-inject
             - 2>&1
@@ -431,7 +437,7 @@ spec:
   template:
     metadata:
       labels:
-        helm.sh/chart: vault-0.11.0
+        helm.sh/chart: vault-0.17.0
         app.kubernetes.io/name: vault
         app.kubernetes.io/instance: vault
         component: server
@@ -479,7 +485,7 @@ spec:
               cpu: 2000m
               memory: 8Gi
   
-          image: vault:1.7.0
+          image: hashicorp/vault:1.8.4
           imagePullPolicy: IfNotPresent
           command:
           - "/bin/sh"
@@ -586,6 +592,7 @@ spec:
                   # to this pod while it's terminating
                   "sleep 5 && kill -SIGTERM $(pidof vault)",
                 ]
+      
   
   volumeClaimTemplates:
     - metadata:
@@ -625,3 +632,43 @@ webhooks:
         apiVersions: ["v1"]
         resources: ["pods"]
     failurePolicy: Ignore
+---
+# Source: vault/templates/tests/server-test.yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: "vault-server-test"
+  namespace: vault--prod
+  annotations:
+    "helm.sh/hook": test
+spec:
+  
+  containers:
+    - name: vault-server-test
+      image: hashicorp/vault:1.8.4
+      imagePullPolicy: IfNotPresent
+      env:
+        - name: VAULT_ADDR
+          value: https://vault.vault--prod.svc:8200
+      command:
+        - /bin/sh
+        - -c
+        - |
+          echo "Checking for sealed info in 'vault status' output"
+          ATTEMPTS=10
+          n=0
+          until [ "$n" -ge $ATTEMPTS ]
+          do
+            echo "Attempt" $n...
+            vault status -format yaml | grep -E '^sealed: (true|false)' && break
+            n=$((n+1))
+            sleep 5
+          done
+          if [ $n -ge $ATTEMPTS ]; then
+            echo "timed out looking for sealed info in 'vault status' output"
+            exit 1
+          fi
+
+          exit 0
+
+  restartPolicy: Never

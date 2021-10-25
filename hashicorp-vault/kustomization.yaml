@@ -6,10 +6,13 @@ resources:
 - raft.yaml
 - ingress.yaml
 - service-account.yaml
+- pv.yaml
 
 patchesStrategicMerge:
 #- service-patch.yaml
 - raft-patch.yaml
+- test-patch.yaml
+- sts-patch.yaml
 
 secretGenerator:
 - name: vault-server-tls

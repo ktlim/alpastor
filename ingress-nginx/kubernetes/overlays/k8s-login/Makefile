@@ -1,5 +1,5 @@
 HELM ?= helm
-INGRESS_NGINX_VERSION ?= 3.39.0
+INGRESS_NGINX_VERSION ?= 3.34.0
 NS ?= ingress-nginx
 CLUSTER_NAME ?= k8s-login
 

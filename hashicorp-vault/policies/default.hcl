@@ -56,10 +56,10 @@ path "cubbyhole/*" {
 }
 
 # Allow a token to lit secrets
-path "secret/*"
-{
-  capabilities = [ "list" ]
+path "secret/metadata/*" {
+    capabilities = ["list"]
 }
+
 
 # Allow a token to wrap arbitrary values in a response-wrapping token
 path "sys/wrapping/wrap" {

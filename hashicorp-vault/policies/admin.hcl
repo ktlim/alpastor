@@ -59,11 +59,15 @@ path "sys/mounts"
 }
 
 # manage mappings
-path "identity/entity"
+path "identity/entity/*"
 {
   capabilities = ["create", "read", "update", "delete", "list", "sudo"]
 }
-path "identity/entity-alias"
+path "identity/entity-alias/*"
+{
+  capabilities = ["create", "read", "update", "delete", "list", "sudo"]
+}
+path "identity/group/*"
 {
   capabilities = ["create", "read", "update", "delete", "list", "sudo"]
 }
@@ -80,3 +84,4 @@ path "database/config/*" {
 path "sys/storage/raft/*" {
   capabilities = ["create", "read", "update", "delete", "list"]
 }
+

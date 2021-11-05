@@ -63,9 +63,13 @@ path "identity/entity/*"
 {
   capabilities = ["create", "read", "update", "delete", "list", "sudo"]
 }
-path "identity/entity-alias/*"
+path "identity/entity-alias"
 {
-  capabilities = ["create", "read", "update", "delete", "list", "sudo"]
+  capabilities = ["create", "update" ]
+}
+path "identity/entity-alias/*"
+{  
+  capabilities = [ "read", "delete", "list", "sudo"]
 }
 path "identity/group/*"
 {

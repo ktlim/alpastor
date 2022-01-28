@@ -19,3 +19,8 @@ configMapGenerator:
   files:
   - config.yaml=etc/dex-config.yaml
 
+images:
+- name: vault
+  newTag: 1.9.2
+- name: dexidp/dex
+  newTag: v2.30.2

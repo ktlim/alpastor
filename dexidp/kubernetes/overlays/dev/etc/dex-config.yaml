@@ -58,10 +58,10 @@ connectors:
   config:
     ssoURL: https://adfs.slac.stanford.edu/adfs/ls
     ca: /etc/dex/tls/adfs.slac.stanford.edu.cert
-    redirectURI: https://dex.slac.stanford.edu/callback
+    redirectURI: https://dex-dev.slac.stanford.edu/callback
     usernameAttr: urn:oid:1.3.6.1.4.1.5923.1.1.1.6
     emailAttr: http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress
-    entityIssuer: https://dex.slac.stanford.edu/callback
+    entityIssuer: https://dex-dev.slac.stanford.edu/callback
     #groupsAttr: groups
     oauth2:
       skipApprovalScreen: true
@@ -91,4 +91,3 @@ staticClients:
   redirectURIs:
   - 'https://grafana-dev.slac.stanford.edu/login/generic_oauth'
   secret: {{ with secret "secret/dexidp/staticClients/grafana-dev" }}{{ .Data.data.secret }}{{ end }}
-

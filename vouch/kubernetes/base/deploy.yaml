@@ -1,0 +1,52 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: vouch
+  name: vouch
+  namespace: auth-system
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: vouch
+  template:
+    metadata:
+      labels:
+        app: vouch
+    spec:
+      serviceAccountName: vouch
+      containers:
+      - image: quay.io/vouch/vouch-proxy:0.36
+        name: vouch
+        env:
+        - name: VOUCH_PORT
+          value: "9090" 
+        - name: OAUTH_CLIENT_SECRET
+          valueFrom:
+            secretKeyRef:
+              key: oidc-secret 
+              name: vouch-config
+        ports:
+        - name: http
+          containerPort: 9090
+          protocol: TCP
+        volumeMounts:
+        - name: data
+          mountPath: /data
+        - name: config
+          mountPath: /config
+        livenessProbe:
+          httpGet:
+            path: /healthcheck
+            port: http
+        readinessProbe:
+          httpGet:
+            path: /healthcheck
+            port: http
+      volumes:
+      - name: config
+        secret:
+          secretName: vouch-config
+      - name: data
+        emptyDir: {}

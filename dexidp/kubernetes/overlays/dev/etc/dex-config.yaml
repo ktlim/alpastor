@@ -91,3 +91,9 @@ staticClients:
   redirectURIs:
   - 'https://grafana-dev.slac.stanford.edu/login/generic_oauth'
   secret: {{ with secret "secret/dexidp/staticClients/grafana-dev" }}{{ .Data.data.secret }}{{ end }}
+- name: vouch-dev
+  id: vouch-dev
+  redirectURIs:
+  - "https://vouch-dev.slac.stanford.edu/auth"
+  #- "https://echo-server.slac.stanford.edu"
+  secret: {{ with secret "secret/dexidp/staticClients/vouch-dev" }}{{ .Data.data.secret }}{{ end }}

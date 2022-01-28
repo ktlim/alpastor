@@ -32,7 +32,7 @@ spec:
         - name: dex-template
           mountPath: /vault/templates/
       containers:
-      - image: quay.io/dexidp/dex:v2.19.0
+      - image: dexidp/dex:v2.19.0
         name: dex
         command: ["/usr/local/bin/dex", "serve", "/etc/dex/cfg/config.yaml"]
         ports:

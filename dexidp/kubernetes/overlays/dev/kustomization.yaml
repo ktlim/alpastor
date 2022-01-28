@@ -6,12 +6,13 @@ bases:
 resources:
 - ns.yaml
 
+patchesStrategicMerge:
+- endpoint-patch.yaml
+
 secretGenerator:
 - name: dex-certs
   files:
-  - tls.crt=certs/dex-dev.crt
-  - tls.key=certs/dex-dev.key
-  - etc/adfs.slac.stanford.edu.cert
+   - etc/adfs.slac.stanford.edu.cert
 
 configMapGenerator:
 - name: vault

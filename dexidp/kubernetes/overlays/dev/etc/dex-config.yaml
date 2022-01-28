@@ -1,4 +1,4 @@
-issuer: https://dex.slac.stanford.edu
+issuer: https://dex-dev.slac.stanford.edu
 storage:
   type: kubernetes
   config:

@@ -4,7 +4,6 @@ metadata:
   labels:
     app: dex
   name: dex
-  namespace: auth-system
 spec:
   replicas: 1
   selector:
@@ -61,9 +60,9 @@ spec:
         secret:
           secretName: dex-certs
           items:
-          - key: tls.key
-            path: tls.key
-          - key: tls.crt
-            path: tls.crt
-          - key: adfs.slac.stanford.edu.cer
-            path: adfs.slac.stanford.edu.cer
+          #- key: tls.key
+          #  path: tls.key
+          #- key: tls.crt
+          #  path: tls.crt
+          - key: adfs.slac.stanford.edu.cert
+            path: adfs.slac.stanford.edu.cert

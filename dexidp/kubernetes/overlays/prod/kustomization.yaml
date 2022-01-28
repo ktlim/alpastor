@@ -9,8 +9,6 @@ resources:
 secretGenerator:
 - name: dex-certs
   files:
-  - tls.crt=certs/dex-dev.crt
-  - tls.key=certs/dex-dev.key
   - etc/adfs.slac.stanford.edu.cert
 
 configMapGenerator:

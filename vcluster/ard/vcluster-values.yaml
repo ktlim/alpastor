@@ -1,0 +1,27 @@
+# Enable HA mode
+#enableHA: true
+
+# Scale up syncer replicas
+syncer:
+  image: loftsh/vcluster:0.6.0-beta.0 
+  replicas: 1
+
+# Scale up etcd
+etcd:
+  replicas: 1
+  storage:
+    persistence: true
+    className: local-storage
+
+# Scale up controller manager
+controller:
+  replicas: 1
+
+# Scale up api server
+api:
+  replicas: 1
+  extraArgs: 
+  - --oidc-issuer-url=https://dex-dev.slac.stanford.edu 
+  - --oidc-client-id=vcluster--ard
+  - --oidc-username-claim=name
+  - --oidc-groups-claim=groups

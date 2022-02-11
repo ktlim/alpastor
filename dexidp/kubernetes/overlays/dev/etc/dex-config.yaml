@@ -73,11 +73,15 @@ staticClients:
   id: k8s-login
   redirectURIs:
   - https://k8s-login.slac.stanford.edu/callback
+  - http://localhost:8000
+  - http://localhost:18000
   secret: {{ with secret "secret/dexidp/staticClients/k8s-login" }}{{ .Data.data.secret }}{{ end }}
 - name: k8s-master-login
   id: k8s-master-login
   redirectURIs:
   - https://k8s-master-login.slac.stanford.edu/callback
+  - http://localhost:8000
+  - http://localhost:18000
   secret: {{ with secret "secret/dexidp/staticClients/k8s-master-login" }}{{ .Data.data.secret }}{{ end }}
 - name: vault
   id: vault
@@ -109,10 +113,14 @@ staticClients:
   id: vcluster--ard
   redirectURIs:
   - https://k8s.slac.stanford.edu/ard/callback
+  - http://localhost:8000
+  - http://localhost:18000
   secret: {{ with secret "secret/ard/kubernetes" }}{{ index .Data.data "client-secret" }}{{ end }}
 - name: vcluster--supercdms
   id: vcluster--supercdms
   redirectURIs:
   - https://k8s.slac.stanford.edu/supercdms/callback
+  - http://localhost:8000
+  - http://localhost:18000
   secret: {{ with secret "secret/supercdms/kubernetes" }}{{ index .Data.data "client-secret" }}{{ end }}
 

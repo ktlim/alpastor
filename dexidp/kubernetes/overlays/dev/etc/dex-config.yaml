@@ -119,7 +119,7 @@ staticClients:
 - name: vcluster--cryoem
   id: vcluster--cryoem
   redirectURIs:
-  - https://k8s.slac.stanford.edu/cryoem/callback
+  - https://k8s-dev.slac.stanford.edu/cryoem/callback
   - http://localhost:8000
   - http://localhost:18000
   secret: {{ with secret "secret/cryoem/kubernetes" }}{{ index .Data.data "client-secret" }}{{ end }}

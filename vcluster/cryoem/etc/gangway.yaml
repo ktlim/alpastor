@@ -1,0 +1,13 @@
+clusterName: "vcluster--cryoem"
+httpPath: "/cryoem/"
+customHTMLTemplatesDir: "/gangway/templates/"
+apiServerURL: "https://k8s-cryoem-api.slac.stanford.edu:443"
+authorizeURL: "https://dex-dev.slac.stanford.edu/auth"
+tokenURL: "https://dex-dev.slac.stanford.edu/token"
+audience: "https://dex-dev.slac.stanford.edu/userinfo"
+clientID: "$CLIENTID"
+clientSecret: "$CLIENTSECRET"
+redirectURL: "https://k8s.slac.stanford.edu/cryoem/callback"
+scopes: ["openid", "profile", "email", "offline_access", "groups" ]
+usernameClaim: "email"
+emailClaim: "email"

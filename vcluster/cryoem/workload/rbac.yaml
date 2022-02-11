@@ -1,0 +1,32 @@
+# NOTE this shoudl be ran INSIDE the vcluster
+
+kind: ClusterRoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: cluster-admins
+subjects:
+- kind: User
+  name: "https://dex-dev.slac.stanford.edu#ytl"
+  apiGroup: rbac.authorization.k8s.io
+#- kind: User
+#  name: "https://dex-dev.slac.stanford.edu#ppascual"
+#  apiGroup: rbac.authorization.k8s.io
+roleRef:
+  kind: ClusterRole
+  name: cluster-admin
+  apiGroup: rbac.authorization.k8s.io
+
+---
+
+kind: ClusterRoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: admins
+subjects:
+- kind: User
+  name: "https://dex-dev.slac.stanford.edu#ppascual"
+  apiGroup: rbac.authorization.k8s.io
+roleRef:
+  kind: ClusterRole
+  name: admin
+  apiGroup: rbac.authorization.k8s.io

@@ -26,6 +26,9 @@ subjects:
 - kind: User
   name: "https://dex-dev.slac.stanford.edu#ppascual"
   apiGroup: rbac.authorization.k8s.io
+- kind: User
+  name: "https://dex-dev.slac.stanford.edu#mshankar"
+  apiGroup: rbac.authorization.k8s.io
 roleRef:
   kind: ClusterRole
   name: admin

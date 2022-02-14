@@ -130,4 +130,10 @@ staticClients:
   - http://localhost:8000
   - http://localhost:18000
   secret: {{ with secret "secret/supercdms/kubernetes" }}{{ index .Data.data "client-secret" }}{{ end }}
-
+- name: vcluster--lcls-data-ana
+  id: vcluster--lcls-data-ana
+  redirectURIs:
+  - https://k8s-dev.slac.stanford.edu/lcls-data-ana/callback
+  - http://localhost:8000
+  - http://localhost:18000
+  secret: {{ with secret "secret/lcls/lcls-data-ana/kubernetes" }}{{ index .Data.data "client-secret" }}{{ end }}

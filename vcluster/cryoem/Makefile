@@ -2,6 +2,8 @@
 NAME ?= vcluster--cryoem
 SECRET_PATH ?= secret/cryoem/kubernetes
 COOKIE_SECRET_PATH ?= secret/tid/k8s
+KUBERNETES_DISTRO ?= k8s
+VCLUSTER_CHART ?= v0.6.0-beta.0
 
 passwords:
 	CLIENTID=$(shell vault kv get --field=client-id -format=json $(SECRET_PATH)) CLIENTSECRET=$(shell vault kv get --field=client-secret -format=json $(SECRET_PATH)) envsubst < etc/gangway.yaml > etc/.gangway.yaml
@@ -11,7 +13,7 @@ clean-passwords:
 	rm etc/.gangway.yaml etc/.session-key
 
 vcluster:
-	vcluster create $(NAME) -n $(NAME) --upgrade --distro k8s -f vcluster-values.yaml
+	vcluster create $(NAME) -n $(NAME) --upgrade --distro $(KUBERNETES_DISTRO) --chart-version $(VCLUSTER_CHART) -f vcluster-values.yaml
 
 auth: passwords
 	kubectl create ns $(NAME) || true
@@ -23,7 +25,11 @@ destroy:
 	vcluster delete $(NAME) -n $(NAME) || true
 	kubectl delete ns $(NAME)
 
-connect:
+rbac:
+	echo "run the following in another window, and ctrl-c this to exit"
+	echo
+	echo kubectl --kubeconfig kubeconfig.yaml apply -f workload/rbac.yaml
+	echo
 	vcluster connect $(NAME) -n $(NAME)
 
 

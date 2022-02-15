@@ -137,3 +137,11 @@ staticClients:
   - http://localhost:8000
   - http://localhost:18000
   secret: {{ with secret "secret/lcls/lcls-data-ana/kubernetes" }}{{ index .Data.data "client-secret" }}{{ end }}
+- name: vcluster--usdf-staffrsp--dev
+  id: vcluster--usdf-staffrsp--dev
+  redirectURIs:
+  - https://k8s-dev.slac.stanford.edu/usdf-staffrsp--dev/callback
+  - http://localhost:8000
+  - http://localhost:18000
+  secret: {{ with secret "secret/rubin/usdf-staffrsp-dev/kubernetes" }}{{ index .Data.data "client-secret" }}{{ end }}
+

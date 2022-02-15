@@ -1,7 +1,7 @@
 clusterName: "vcluster--usdf-staffrsp--dev"
 httpPath: "/usdf-staffrsp--dev/"
 customHTMLTemplatesDir: "/gangway/templates/"
-apiServerURL: "https://k8s-usdf-staffrsp--dev-api-dev.slac.stanford.edu:443"
+apiServerURL: "https://k8s-usdf-staffrsp-dev-api.slac.stanford.edu:443"
 authorizeURL: "https://dex-dev.slac.stanford.edu/auth"
 tokenURL: "https://dex-dev.slac.stanford.edu/token"
 audience: "https://dex-dev.slac.stanford.edu/userinfo"

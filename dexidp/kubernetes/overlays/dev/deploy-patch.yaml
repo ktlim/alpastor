@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: dex
+spec:
+  replicas: 1
+  template:
+    spec:
+      containers:
+      - image: quay.io/dexidp/dex:v2.19.0
+        name: dex
+        command: ["/usr/local/bin/dex", "serve", "/etc/dex/cfg/config.yaml"]
+        ports:
+        - name: https
+          containerPort: 32000
+          protocol: TCP
+        volumeMounts:
+        - name: vault-secrets
+          mountPath: /etc/dex/cfg/
+        - name: certs
+          mountPath: /etc/dex/tls
+          readOnly: true
+      volumes:
+      - name: dex-template
+        configMap: 
+          name: dex
+      - name: certs
+        secret:
+          secretName: dex-certs
+          items:
+          - key: adfs.slac.stanford.edu.cer
+            path: adfs.slac.stanford.edu.cer

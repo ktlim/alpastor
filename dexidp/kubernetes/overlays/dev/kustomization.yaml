@@ -6,10 +6,13 @@ bases:
 resources:
 - ns.yaml
 
+patchesStrategicMerge:
+- endpoint-patch.yaml
+
 secretGenerator:
 - name: dex-certs
   files:
-  - etc/adfs.slac.stanford.edu.cert
+   - etc/adfs.slac.stanford.edu.cert
 
 configMapGenerator:
 - name: vault
@@ -23,4 +26,5 @@ images:
 - name: vault
   newTag: 1.9.2
 - name: dexidp/dex
-  newTag: v2.30.2
+  #newTag: v2.30.2
+  newTag: v2.31.0

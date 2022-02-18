@@ -1,0 +1,57 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: echo
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: echo
+  template:
+    metadata:
+      labels:
+        app: echo
+    spec:
+      containers:
+        - name: echo
+          image: ealen/echo-server
+          ports:
+            - name: http
+              containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: echo
+spec:
+  ports:
+    - name: http
+      port: 80
+      targetPort: 80
+      protocol: TCP
+  selector:
+    app: echo
+
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: echo
+  annotations:
+    nginx.ingress.kubernetes.io/auth-signin: "https://vouch-dev.slac.stanford.edu/login?url=$scheme://$http_host$request_uri&vouch-failcount=$auth_resp_failcount&X-Vouch-Token=$auth_resp_jwt&error=$auth_resp_err"
+    nginx.ingress.kubernetes.io/auth-url: https://vouch-dev.slac.stanford.edu/validate
+    nginx.ingress.kubernetes.io/auth-response-headers: X-Vouch-User
+    nginx.ingress.kubernetes.io/auth-snippet: |
+      # these return values are used by the @error401 call
+      auth_request_set $auth_resp_jwt $upstream_http_x_vouch_jwt;
+      auth_request_set $auth_resp_err $upstream_http_x_vouch_err;
+      auth_request_set $auth_resp_failcount $upstream_http_x_vouch_failcount;
+spec:
+  rules:
+  - host: echo-server.slac.stanford.edu
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: echo
+          servicePort: http

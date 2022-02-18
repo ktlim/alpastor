@@ -4,9 +4,9 @@ storage:
   config:
     inCluster: true
 web:
-  https: 0.0.0.0:32000
-  tlsCert: /etc/dex/tls/tls.crt
-  tlsKey: /etc/dex/tls/tls.key
+  http: 0.0.0.0:32000
+  #tlsCert: /etc/dex/tls/tls.crt
+  #tlsKey: /etc/dex/tls/tls.key
 telemetry:
   http: 0.0.0.0:5558
 connectors:
@@ -57,7 +57,7 @@ connectors:
   name: SLAC SSO
   config:
     ssoURL: https://adfs.slac.stanford.edu/adfs/ls
-    ca: /etc/dex/tls/adfs.slac.stanford.edu.cer
+    ca: /etc/dex/tls/adfs.slac.stanford.edu.cert
     redirectURI: https://dex.slac.stanford.edu/callback
     usernameAttr: urn:oid:1.3.6.1.4.1.5923.1.1.1.6
     emailAttr: http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress

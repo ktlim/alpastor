@@ -1,0 +1,13 @@
+clusterName: "vcluster--lcls-data-ana"
+httpPath: "/lcls-data-ana/"
+customHTMLTemplatesDir: "/gangway/templates/"
+apiServerURL: "https://k8s-lcls-data-ana-api-dev.slac.stanford.edu:443"
+authorizeURL: "https://dex-dev.slac.stanford.edu/auth"
+tokenURL: "https://dex-dev.slac.stanford.edu/token"
+audience: "https://dex-dev.slac.stanford.edu/userinfo"
+clientID: "$CLIENTID"
+clientSecret: "$CLIENTSECRET"
+redirectURL: "https://k8s-dev.slac.stanford.edu/lcls-data-ana/callback"
+scopes: ["openid", "profile", "email", "offline_access", "groups" ]
+usernameClaim: "email"
+emailClaim: "email"

@@ -1,0 +1,46 @@
+# Enable HA mode
+enableHA: true
+
+# not supported with k8s yet
+#securityContext:
+#  runAsUser: 15693 # cryo-daq
+#  fsGroup: 3591 # cryo-data
+#  runAsGroup: 3591
+#  runAsNonRoot: true
+
+vcluster:
+  extraArgs:
+  - --oidc-issuer-url=https://dex-dev.slac.stanford.edu
+  - --oidc-client-id=vcluster--lcls-data-ana
+  - --oidc-username-claim=name
+  - --oidc-groups-claim=groups
+
+storage:
+  persistence: true
+  size: 5Gi
+  className: local-storage
+
+# Scale up syncer replicas
+syncer:
+  # image: loftsh/vcluster:0.6.0-beta.0 
+  replicas: 1
+
+# Scale up etcd
+etcd:
+  replicas: 1
+  storage:
+    persistence: true
+    className: local-storage
+
+# Scale up controller manager
+controller:
+  replicas: 1
+
+# Scale up api server
+api:
+  replicas: 1
+  extraArgs: 
+  - --oidc-issuer-url=https://dex-dev.slac.stanford.edu 
+  - --oidc-client-id=vcluster--lcls-data-ana
+  - --oidc-username-claim=name
+  - --oidc-groups-claim=groups

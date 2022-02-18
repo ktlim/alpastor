@@ -1,0 +1,6 @@
+namespace: auth-system
+
+resources:
+- deploy.yaml  
+- endpoint.yaml  
+- rbac.yaml

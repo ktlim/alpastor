@@ -4,6 +4,8 @@ VAULT_ADDR=https://vault.slac.stanford.edu
 NAMESPACE ?= vault--prod
 DATE ?= $(shell date +%Y%m%d)
 
+.PHONY: unseal unseal-0 unseal-1 unseal-2
+
 define unseal
 	kubectl exec -it vault-$(1) -- vault operator unseal -address=https://vault-$(1).slac.stanford.edu:8200
 endef

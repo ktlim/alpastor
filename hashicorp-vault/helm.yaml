@@ -486,7 +486,7 @@ spec:
               cpu: 2000m
               memory: 8Gi
   
-          image: hashicorp/vault:1.9.2
+          image: hashicorp/vault:1.9.3
           imagePullPolicy: IfNotPresent
           command:
           - "/bin/sh"

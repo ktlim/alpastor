@@ -1,0 +1,5 @@
+namespace: kyverno-system
+
+resources:
+- kyverno.yaml
+#- kyverno-policies.yaml

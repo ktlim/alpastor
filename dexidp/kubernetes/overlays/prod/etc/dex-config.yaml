@@ -76,6 +76,11 @@ staticClients:
   redirectURIs:
   - 'https://k8s-master-login.slac.stanford.edu/callback'
   secret: {{ with secret "secret/dexidp/staticClients/k8s-master-login" }}{{ .Data.data.secret }}{{ end }}
+- name: sdf-k8s01
+  id: sdf-k8s01
+  redirectURIs:
+  - 'https://sdf-k8s.slac.stanford.edu/sdf-k8s01/callback'
+  secret: {{ with secret "secret/dexidp/staticClients/sdf-k8s01" }}{{ .Data.data.secret }}{{ end }}
 - name: vault
   id: vault
   redirectURIs:
@@ -91,4 +96,50 @@ staticClients:
   redirectURIs:
   - 'https://grafana-dev.slac.stanford.edu/login/generic_oauth'
   secret: {{ with secret "secret/dexidp/staticClients/grafana-dev" }}{{ .Data.data.secret }}{{ end }}
+- name: vouch-dev
+  id: vouch-dev
+  redirectURIs:
+  - https://vouch-dev.slac.stanford.edu/auth
+  #- "https://echo-server.slac.stanford.edu"
+  secret: {{ with secret "secret/dexidp/staticClients/vouch-dev" }}{{ .Data.data.secret }}{{ end }}
+- name: rubin-usdf-staffrsp-dev
+  id: {{ with secret "secret/rubin/usdf-staffrsp-dev/gafaelfawr" }}{{ index .Data.data "oidc-client-id" }}{{ end }}
+  redirectURIs:
+  - https://rubin-data-dev.slac.stanford.edu/login
+  secret: {{ with secret "secret/rubin/usdf-staffrsp-dev/gafaelfawr" }}{{ index .Data.data "oidc-client-secret" }}{{ end }}
+- name: vcluster--ard
+  id: vcluster--ard
+  redirectURIs:
+  - https://k8s.slac.stanford.edu/ard/callback
+  - http://localhost:8000
+  - http://localhost:18000
+  secret: {{ with secret "secret/ard/kubernetes" }}{{ index .Data.data "client-secret" }}{{ end }}
+- name: vcluster--cryoem
+  id: vcluster--cryoem
+  redirectURIs:
+  - https://k8s-dev.slac.stanford.edu/cryoem/callback
+  - http://localhost:8000
+  - http://localhost:18000
+  secret: {{ with secret "secret/cryoem/kubernetes" }}{{ index .Data.data "client-secret" }}{{ end }}
+- name: vcluster--supercdms
+  id: vcluster--supercdms
+  redirectURIs:
+  - https://k8s.slac.stanford.edu/supercdms/callback
+  - http://localhost:8000
+  - http://localhost:18000
+  secret: {{ with secret "secret/supercdms/kubernetes" }}{{ index .Data.data "client-secret" }}{{ end }}
+- name: vcluster--lcls-data-ana
+  id: vcluster--lcls-data-ana
+  redirectURIs:
+  - https://k8s-dev.slac.stanford.edu/lcls-data-ana/callback
+  - http://localhost:8000
+  - http://localhost:18000
+  secret: {{ with secret "secret/lcls/lcls-data-ana/kubernetes" }}{{ index .Data.data "client-secret" }}{{ end }}
+- name: vcluster--usdf-staffrsp--dev
+  id: vcluster--usdf-staffrsp--dev
+  redirectURIs:
+  - https://k8s-dev.slac.stanford.edu/usdf-staffrsp--dev/callback
+  - http://localhost:8000
+  - http://localhost:18000
+  secret: {{ with secret "secret/rubin/usdf-staffrsp-dev/kubernetes" }}{{ index .Data.data "client-secret" }}{{ end }}
 

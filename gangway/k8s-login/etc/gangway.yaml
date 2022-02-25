@@ -1,0 +1,13 @@
+clusterName: "k8s-login"
+httpPath: "/k8s-login"
+customHTMLTemplatesDir: "/gangway/templates/"
+apiServerURL: "https://k8s-api01.slac.stanford.edu:16443"
+authorizeURL: "https://dex.slac.stanford.edu/auth"
+tokenURL: "https://dex.slac.stanford.edu/token"
+audience: "https://dex.slac.stanford.edu/userinfo"
+clientID: "$CLIENTID"
+clientSecret: "$CLIENTSECRET"
+redirectURL: "https://k8s.slac.stanford.edu/k8s-login/callback"
+scopes: ["openid", "profile", "email", "offline_access", "groups" ]
+usernameClaim: "email"
+emailClaim: "email"

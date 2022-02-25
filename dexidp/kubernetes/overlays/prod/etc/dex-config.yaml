@@ -10,48 +10,6 @@ web:
 telemetry:
   http: 0.0.0.0:5558
 connectors:
-- type: ldap
-  id: unix
-  name: Unix LDAP
-  config:
-    host: ldap-unix.slac.stanford.edu:636
-    insecureSkipVerify: true
-    userSearch:
-      baseDN: ou=Accounts,dc=slac,dc=stanford,dc=edu
-      filter: ''
-      username: uid
-      idAttr: uid
-      emailAttr: mail
-      nameAttr: gecos
-    groupSearch:
-      baseDN: ou=Group,dc=slac,dc=stanford,dc=edu
-      filter: "(objectclass=posixGroup)"
-      userAttr: uid
-      groupAttr: memberUid
-      nameAttr: cn
-- type: ldap
-  id: ad
-  name: Windows LDAP
-  config:
-    host: ldap-ad.slac.stanford.edu:636
-    {{- with secret "secret/dexidp/connectors/ldap-ad" }}
-    bindDN: {{ .Data.data.bindDN }}
-    bindPW: {{ .Data.data.bindPW }}
-    {{- end }}
-    userSearch:
-      baseDN: DC=win,DC=slac,DC=Stanford,DC=edu
-      filter: "(objectClass=person)(objectcategory=user)"
-      username: sAMAccountName
-      idAttr: userPrincipalName
-      emailAttr: mail
-      nameAttr: name
-    groupSearch:
-      baseDN: DC=win,DC=slac,DC=Stanford,DC=edu
-      filter: "(objectClass=group)"
-      userMatchers:
-      - userAttr: DN
-        groupAttr: member
-      nameAttr: cn
 - type: saml
   id: saml
   name: SLAC SSO

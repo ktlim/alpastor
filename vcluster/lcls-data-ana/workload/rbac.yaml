@@ -9,10 +9,10 @@ subjects:
   kind: Group
   name: system:masters
 - kind: User
-  name: https://dex.slac.stanford.edu#ytl
+  name: ytl@slac.stanford.edu
   apiGroup: rbac.authorization.k8s.io
 - kind: User
-  name: https://dex.slac.stanford.edu#ppascual
+  name: ppascual@slac.stanford.edu
   apiGroup: rbac.authorization.k8s.io
 roleRef:
   kind: ClusterRole
@@ -24,10 +24,10 @@ roleRef:
 kind: ClusterRoleBinding
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
-  name: admins
+  name: admin
 subjects:
 - kind: User
-  name: "https://dex.slac.stanford.edu#mshankar"
+  name: mshankar@slac.stanford.edu
   apiGroup: rbac.authorization.k8s.io
 roleRef:
   kind: ClusterRole

@@ -41,5 +41,5 @@ api:
   extraArgs: 
   - --oidc-issuer-url=https://dex.slac.stanford.edu 
   - --oidc-client-id=vcluster--lcls-data-ana
-  - --oidc-username-claim=name
+  - --oidc-username-claim=email
   - --oidc-groups-claim=groups

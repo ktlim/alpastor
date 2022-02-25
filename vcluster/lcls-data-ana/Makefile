@@ -19,7 +19,7 @@ auth: passwords
 	kubectl create ns $(NAME) || true
 	kubectl apply -k .
 
-apply: passwords auth vcluster clean-passwords
+apply: passwords auth vcluster clean-passwords rbac
 
 destroy:
 	vcluster delete $(NAME) -n $(NAME) || true

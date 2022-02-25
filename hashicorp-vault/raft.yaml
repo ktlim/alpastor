@@ -3,7 +3,7 @@ kind: Service
 metadata:
   name: vault-0
   annotations:
-    metallb.universe.tf/address-pool: farm04-openstack
+    metallb.universe.tf/address-pool: sdf-services
 spec:
   type: LoadBalancer
   externalTrafficPolicy: Cluster
@@ -24,7 +24,7 @@ kind: Service
 metadata:
   name: vault-1
   annotations:
-    metallb.universe.tf/address-pool: farm04-openstack
+    metallb.universe.tf/address-pool: sdf-services
 spec:
   type: LoadBalancer
   externalTrafficPolicy: Cluster
@@ -45,7 +45,7 @@ kind: Service
 metadata:
   name: vault-2
   annotations:
-    metallb.universe.tf/address-pool: farm04-openstack
+    metallb.universe.tf/address-pool: sdf-services
 spec:
   type: LoadBalancer
   externalTrafficPolicy: Cluster

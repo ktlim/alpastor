@@ -5,18 +5,21 @@ resources:
 - helm.yaml
 - raft.yaml
 - ingress.yaml
-- service-account.yaml
+#- service-account.yaml
 - pv.yaml
 
 patchesStrategicMerge:
 #- service-patch.yaml
 - raft-patch.yaml
-- test-patch.yaml
+#- test-patch.yaml
 - sts-patch.yaml
 
 secretGenerator:
 - name: vault-server-tls
   files:
+  #- vault.ca=self-certs/raft.ca
+  #- vault.crt=self-certs/raft.crt
+  #- vault.key=self-certs/raft.key
   - vault.ca=certs/vault--prod.ca
   - vault.crt=certs/vault--prod.crt
   - vault.key=certs/vault--prod.key

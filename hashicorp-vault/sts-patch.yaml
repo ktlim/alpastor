@@ -4,7 +4,26 @@ metadata:
   name: vault
   namespace: vault--prod
 spec:
-  replicas: 3  
+  replicas: 3 
+  template:
+    spec:
+      tolerations:
+      - key: node-role.kubernetes.io/master
+        effect: NoSchedule
+      affinity:
+        podAntiAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+          - weight: 1
+            podAffinityTerm:
+              topologyKey: "kubernetes.io/hostname"
+        #nodeAffinity:
+        #  requiredDuringSchedulingIgnoredDuringExecution:
+        #    nodeSelectorTerms:
+        #    - matchExpressions:
+        #      - key: type # Replace this with corresponding worker node label's key
+        #        operator: In
+        #        values:
+        #        - general # Replace this with corresponding worker node label's value
   volumeClaimTemplates:
   - metadata:
       name: data
@@ -15,4 +34,3 @@ spec:
       resources:
         requests:
           storage: 10Gi
-

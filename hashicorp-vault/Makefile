@@ -43,6 +43,9 @@ unseal2:
 	kubectl exec --stdin=true --tty=true vault-2 -- vault operator unseal -address=https://vault-2.slac.stanford.edu:8200
 	kubectl exec --stdin=true --tty=true vault-2 -- vault operator unseal -address=https://vault-2.slac.stanford.edu:8200
 
+raft-status:
+	kubectl exec --stdin=true --tty=true vault-0 -- vault operator raft list-peers -address=https://vault-0.slac.stanford.edu:8200
+
 
 # https://www.vaultproject.io/docs/platform/k8s/helm/examples/ha-with-raft
 join1:

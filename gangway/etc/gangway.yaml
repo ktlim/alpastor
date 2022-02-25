@@ -1,0 +1,13 @@
+clusterName: "sdf-k8s01"
+httpPath: "/sdf-k8s01/"
+customHTMLTemplatesDir: "/gangway/templates/"
+apiServerURL: "https://sdf-k8s01.slac.stanford.edu:6443"
+authorizeURL: "https://dex.slac.stanford.edu/auth"
+tokenURL: "https://dex.slac.stanford.edu/token"
+audience: "https://dex.slac.stanford.edu/userinfo"
+clientID: "$CLIENTID"
+clientSecret: "$CLIENTSECRET"
+redirectURL: "https://k8s.slac.stanford.edu/sdf-k8s01/callback"
+scopes: ["openid", "profile", "email", "offline_access", "groups" ]
+usernameClaim: "email"
+emailClaim: "email"

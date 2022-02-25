@@ -8,7 +8,7 @@ metadata:
   name: vault
   namespace: vault--prod
   labels:
-    helm.sh/chart: vault-0.17.0
+    helm.sh/chart: vault-0.19.0
     app.kubernetes.io/name: vault
     app.kubernetes.io/instance: vault
     app.kubernetes.io/managed-by: Helm
@@ -38,7 +38,7 @@ metadata:
   name: vault
   namespace: vault--prod
   labels:
-    helm.sh/chart: vault-0.17.0
+    helm.sh/chart: vault-0.19.0
     app.kubernetes.io/name: vault
     app.kubernetes.io/instance: vault
     app.kubernetes.io/managed-by: Helm
@@ -50,7 +50,7 @@ metadata:
   name: vault-config
   namespace: vault--prod
   labels:
-    helm.sh/chart: vault-0.17.0
+    helm.sh/chart: vault-0.19.0
     app.kubernetes.io/name: vault
     app.kubernetes.io/instance: vault
     app.kubernetes.io/managed-by: Helm
@@ -113,7 +113,7 @@ kind: ClusterRoleBinding
 metadata:
   name: vault-server-binding
   labels:
-    helm.sh/chart: vault-0.17.0
+    helm.sh/chart: vault-0.19.0
     app.kubernetes.io/name: vault
     app.kubernetes.io/instance: vault
     app.kubernetes.io/managed-by: Helm
@@ -133,7 +133,7 @@ metadata:
   namespace: vault--prod
   name: vault-discovery-role
   labels:
-    helm.sh/chart: vault-0.17.0
+    helm.sh/chart: vault-0.19.0
     app.kubernetes.io/name: vault
     app.kubernetes.io/instance: vault
     app.kubernetes.io/managed-by: Helm
@@ -149,7 +149,7 @@ metadata:
   name: vault-discovery-rolebinding
   namespace: vault--prod
   labels:
-    helm.sh/chart: vault-0.17.0
+    helm.sh/chart: vault-0.19.0
     app.kubernetes.io/name: vault
     app.kubernetes.io/instance: vault
     app.kubernetes.io/managed-by: Helm
@@ -191,7 +191,7 @@ metadata:
   name: vault-active
   namespace: vault--prod
   labels:
-    helm.sh/chart: vault-0.17.0
+    helm.sh/chart: vault-0.19.0
     app.kubernetes.io/name: vault
     app.kubernetes.io/instance: vault
     app.kubernetes.io/managed-by: Helm
@@ -220,7 +220,7 @@ metadata:
   name: vault-standby
   namespace: vault--prod
   labels:
-    helm.sh/chart: vault-0.17.0
+    helm.sh/chart: vault-0.19.0
     app.kubernetes.io/name: vault
     app.kubernetes.io/instance: vault
     app.kubernetes.io/managed-by: Helm
@@ -249,7 +249,7 @@ metadata:
   name: vault-internal
   namespace: vault--prod
   labels:
-    helm.sh/chart: vault-0.17.0
+    helm.sh/chart: vault-0.19.0
     app.kubernetes.io/name: vault
     app.kubernetes.io/instance: vault
     app.kubernetes.io/managed-by: Helm
@@ -278,7 +278,7 @@ metadata:
   name: vault
   namespace: vault--prod
   labels:
-    helm.sh/chart: vault-0.17.0
+    helm.sh/chart: vault-0.19.0
     app.kubernetes.io/name: vault
     app.kubernetes.io/instance: vault
     app.kubernetes.io/managed-by: Helm
@@ -319,6 +319,7 @@ spec:
       app.kubernetes.io/name: vault-agent-injector
       app.kubernetes.io/instance: vault
       component: webhook
+  
   template:
     metadata:
       labels:
@@ -348,7 +349,7 @@ spec:
       containers:
         - name: sidecar-injector
           
-          image: "hashicorp/vault-k8s:0.14.0"
+          image: "hashicorp/vault-k8s:0.14.2"
           imagePullPolicy: "IfNotPresent"
           securityContext:
             allowPrivilegeEscalation: false
@@ -362,7 +363,7 @@ spec:
             - name: AGENT_INJECT_VAULT_AUTH_PATH
               value: auth/kubernetes
             - name: AGENT_INJECT_VAULT_IMAGE
-              value: "hashicorp/vault:1.8.4"
+              value: "hashicorp/vault:1.9.2"
             - name: AGENT_INJECT_TLS_AUTO
               value: vault-agent-injector-cfg
             - name: AGENT_INJECT_TLS_AUTO_HOSTS
@@ -437,7 +438,7 @@ spec:
   template:
     metadata:
       labels:
-        helm.sh/chart: vault-0.17.0
+        helm.sh/chart: vault-0.19.0
         app.kubernetes.io/name: vault
         app.kubernetes.io/instance: vault
         component: server
@@ -485,7 +486,7 @@ spec:
               cpu: 2000m
               memory: 8Gi
   
-          image: hashicorp/vault:1.8.4
+          image: hashicorp/vault:1.9.2
           imagePullPolicy: IfNotPresent
           command:
           - "/bin/sh"
@@ -645,11 +646,14 @@ spec:
   
   containers:
     - name: vault-server-test
-      image: hashicorp/vault:1.8.4
+      image: hashicorp/vault:1.9.2
       imagePullPolicy: IfNotPresent
       env:
         - name: VAULT_ADDR
           value: https://vault.vault--prod.svc:8200
+        
+        - name: "VAULT_CACERT"
+          value: "/vault/userconfig/vault-server-tls/vault.ca"
       command:
         - /bin/sh
         - -c
@@ -670,5 +674,6 @@ spec:
           fi
 
           exit 0
-
+      volumeMounts:
+  volumes:
   restartPolicy: Never

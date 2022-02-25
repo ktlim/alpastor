@@ -1,3 +1,6 @@
 [submodule "vcluster/cryoem/workload/explgbk-docker"]
 	path = vcluster/cryoem/workload/explgbk-docker
 	url = git@github.com:slaclab/explgbk-docker.git
+[submodule "kyverno/slac-kyverno-policies"]
+	path = kyverno/slac-kyverno-policies
+	url = git@github.com:slaclab/slac-kyverno-policies.git

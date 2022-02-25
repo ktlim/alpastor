@@ -1,0 +1,18 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: vault
+  namespace: vault--prod
+spec:
+  replicas: 3  
+  volumeClaimTemplates:
+  - metadata:
+      name: data
+    spec:
+      storageClassName: "vault" 
+      accessModes:
+      - ReadWriteOnce
+      resources:
+        requests:
+          storage: 10Gi
+

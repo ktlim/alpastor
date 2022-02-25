@@ -1,0 +1,9 @@
+address-pools:
+- name: sdf-services
+  protocol: layer2
+  addresses:
+  - 172.24.4.200-172.24.4.253
+- name: sdf-dmz
+  protocol: layer2
+  addresses:
+  - 134.79.23.200-134.79.23.200

@@ -1,0 +1,19 @@
+namespace: csi-wekafs
+ 
+resources:
+- ns.yaml
+- csi-wekafs.yaml
+- storage-class.yaml
+
+secretGenerator:
+- name: csi-wekafs-api-secret
+  literals:
+  - organization=Root
+  - scheme=http
+  - endpoints=172.24.4.41:14000,172.24.4.42:14000,172.24.4.43:14000,172.24.4.44:14000,172.24.4.45:14000,172.24.4.45:14000
+  files:
+  - etc/password
+  - etc/username 
+
+generatorOptions:
+ disableNameSuffixHash: true

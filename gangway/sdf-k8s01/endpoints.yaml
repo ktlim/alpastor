@@ -4,7 +4,7 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   annotations:
-  name: gangway
+  name: gangway-sdf-k8s01
 spec:
   rules:
   - host: k8s.slac.stanford.edu
@@ -12,7 +12,7 @@ spec:
       paths:
       - backend:
           service:
-            name: gangway
+            name: gangway-sdf-k8s01
             port:
               name: "http"
         path: /sdf-k8s01
@@ -23,10 +23,11 @@ spec:
 kind: Service
 apiVersion: v1
 metadata:
-  name: gangway
+  name: gangway-sdf-k8s01
   namespace: auth-system
   labels:
     app: gangway
+    cluster: sdf-k8s01
 spec:
   type: ClusterIP
   ports:
@@ -36,6 +37,7 @@ spec:
       targetPort: "http"
   selector:
     app: gangway
+    cluster: sdf-k8s01
 
 ---
 

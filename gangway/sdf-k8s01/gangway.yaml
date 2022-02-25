@@ -1,19 +1,22 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: gangway
+  name: gangway-sdf-k8s01
   labels:
     app: gangway
+    cluster: sdf-k8s01
 spec:
   replicas: 1
   selector:
     matchLabels:
       app: gangway
+      cluster: sdf-k8s01
   strategy:
   template:
     metadata:
       labels:
         app: gangway
+        cluster: sdf-k8s01
         revision: "1"
     spec:
       containers:

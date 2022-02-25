@@ -3,7 +3,7 @@ NAME ?= vcluster--lcls-data-ana
 SECRET_PATH ?= secret/lcls/lcls-data-ana/kubernetes
 COOKIE_SECRET_PATH ?= secret/tid/k8s
 KUBERNETES_DISTRO ?= k8s
-VCLUSTER_CHART ?= v0.6.0-beta.0
+VCLUSTER_CHART ?= v0.6.0
 
 passwords:
 	CLIENTID=$(shell vault kv get --field=client-id -format=json $(SECRET_PATH)) CLIENTSECRET=$(shell vault kv get --field=client-secret -format=json $(SECRET_PATH)) envsubst < etc/gangway.yaml > etc/.gangway.yaml
@@ -26,10 +26,6 @@ destroy:
 	kubectl delete ns $(NAME)
 
 rbac:
-	echo "run the following in another window, and ctrl-c this to exit"
-	echo
-	echo kubectl --kubeconfig kubeconfig.yaml apply -f workload/rbac.yaml
-	echo
-	vcluster connect $(NAME) -n $(NAME)
+	vcluster connect $(NAME) -n $(NAME) -- kubectl apply -f workload/rbac.yaml
 
 

@@ -10,19 +10,18 @@ enableHA: true
 
 vcluster:
   extraArgs:
-  - --oidc-issuer-url=https://dex-dev.slac.stanford.edu
+  - --oidc-issuer-url=https://dex.slac.stanford.edu
   - --oidc-client-id=vcluster--lcls-data-ana
   - --oidc-username-claim=name
   - --oidc-groups-claim=groups
 
 storage:
   persistence: true
-  size: 5Gi
-  className: local-storage
+  size: 1Gi
+  className: wekafs--sdf-k8s01
 
 # Scale up syncer replicas
 syncer:
-  # image: loftsh/vcluster:0.6.0-beta.0 
   replicas: 1
 
 # Scale up etcd
@@ -30,7 +29,7 @@ etcd:
   replicas: 1
   storage:
     persistence: true
-    className: local-storage
+    className: wekafs--sdf-k8s01
 
 # Scale up controller manager
 controller:
@@ -40,7 +39,7 @@ controller:
 api:
   replicas: 1
   extraArgs: 
-  - --oidc-issuer-url=https://dex-dev.slac.stanford.edu 
+  - --oidc-issuer-url=https://dex.slac.stanford.edu 
   - --oidc-client-id=vcluster--lcls-data-ana
   - --oidc-username-claim=name
   - --oidc-groups-claim=groups

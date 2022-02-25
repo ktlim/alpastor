@@ -50,10 +50,9 @@
             </p>
            <pre>
              <code class="language-bash">
-$ curl -LO https://storage.googleapis.com/kubernetes-release/release/`curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt`/bin/$(uname | awk '{print tolower($0)}')/amd64/kubectl
-$ chmod +x ./kubectl
-$ sudo mv ./kubectl /usr/local/bin/kubectl
-             </code>
+curl -LO https://storage.googleapis.com/kubernetes-release/release/`curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt`/bin/$(uname | awk '{print tolower($0)}')/amd64/kubectl
+chmod +x ./kubectl
+sudo mv ./kubectl /usr/local/bin/kubectl</code>
            </pre>
             <div class="row">
                 <div class="col s12">Once kubectl is installed, you may execute the following:</div>
@@ -69,8 +68,7 @@ kubectl config set-credentials "{{ .KubeCfgUser }}"  \
     --auth-provider-arg='refresh-token={{ .RefreshToken }}' \
     --auth-provider-arg='id-token={{ .IDToken }}'
 kubectl config set-context "{{ .ClusterName }}" --cluster="{{ .ClusterName }}" --user="{{ .KubeCfgUser }}"
-kubectl config use-context "{{ .ClusterName }}"
-              </code>
+kubectl config use-context "{{ .ClusterName }}"</code>
             </pre>
         </div>
     </body>

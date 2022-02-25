@@ -69,17 +69,17 @@ staticClients:
 - name: k8s-login
   id: k8s-login
   redirectURIs:
-  - 'https://k8s-login.slac.stanford.edu/callback'
+  - 'https://k8s.slac.stanford.edu/k8s-login/callback'
   secret: {{ with secret "secret/dexidp/staticClients/k8s-login" }}{{ .Data.data.secret }}{{ end }}
-- name: k8s-master-login
-  id: k8s-master-login
+- name: k8s-master
+  id: k8s-master
   redirectURIs:
-  - 'https://k8s-master-login.slac.stanford.edu/callback'
+  - 'https://k8s.slac.stanford.edu/k8s-master/callback'
   secret: {{ with secret "secret/dexidp/staticClients/k8s-master-login" }}{{ .Data.data.secret }}{{ end }}
 - name: sdf-k8s01
   id: sdf-k8s01
   redirectURIs:
-  - 'https://sdf-k8s.slac.stanford.edu/sdf-k8s01/callback'
+  - 'https://k8s.slac.stanford.edu/sdf-k8s01/callback'
   secret: {{ with secret "secret/dexidp/staticClients/sdf-k8s01" }}{{ .Data.data.secret }}{{ end }}
 - name: vault
   id: vault

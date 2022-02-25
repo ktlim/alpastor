@@ -1,0 +1,33 @@
+We use a kubernetes service account `dex` from which we determine a JWT to populate into the vault kubernetes authentication method.
+
+
+
+export K8S_HOST=10.96.0.1:443
+
+# k8s-master cluster
+export K8S_CLUSTER=sdf-k8s01
+export K8S_HOST=sdf-k8s01.slac.stanford.edu:6443
+export KUBECONFIG=/root/.kube/config
+export SA=dex
+export NS=auth-system
+
+# common
+kubectl -n $NS create serviceaccount $SA
+export SA_NAME=$(kubectl -n $NS get sa $SA -o jsonpath="{.secrets[*]['name']}")
+
+# requires vault 1.9.3
+vault auth enable --path="$K8S_CLUSTER" kubernetes
+vault write auth/$K8S_CLUSTER/config \
+    kubernetes_host=https://$K8S_HOST
+vault write auth/$K8S_CLUSTER/role/dex \
+  bound_service_account_names=$SA \
+  bound_service_account_namespaces=auth-system \
+  policies=dexidp \
+  ttl=1h
+
+
+we can then launch the `test` pod and attempt authentication with
+
+export KUBE_TOKEN=$(cat /var/run/secrets/kubernetes.io/serviceaccount/token)
+curl --request POST --data '{"jwt": "'"$KUBE_TOKEN"'", "role": "dex" }' $VAULT_ADDR/v1/auth/sdf-k8s01/login
+

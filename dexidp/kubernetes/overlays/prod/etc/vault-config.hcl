@@ -4,7 +4,7 @@
       "role" = "dex"
     }
     "type" = "kubernetes"
-    "mount_path" = "auth/k8s-api01"
+    "mount_path" = "auth/sdf-k8s01"
   }
   "sink" = {
     "config" = {

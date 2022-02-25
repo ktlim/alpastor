@@ -48,21 +48,21 @@ spec:
               mountPath: /gangway/
             - name: templates
               mountPath: /gangway/templates/
-          #livenessProbe:
-          #  httpGet:
-          #    path: /
-          #    port: 8080
-          #  initialDelaySeconds: 20
-          #  timeoutSeconds: 1
-          #  periodSeconds: 60
-          #  failureThreshold: 3
-          #readinessProbe:
-          #  httpGet:
-          #    path: /
-          #    port: 8080
-          #  timeoutSeconds: 1
-          #  periodSeconds: 10
-          #  failureThreshold: 3
+          livenessProbe:
+            httpGet:
+              path: /sdf-k8s01
+              port: 8080
+            initialDelaySeconds: 20
+            timeoutSeconds: 1
+            periodSeconds: 60
+            failureThreshold: 3
+          readinessProbe:
+            httpGet:
+              path: /sdf-k8s01
+              port: 8080
+            timeoutSeconds: 1
+            periodSeconds: 10
+            failureThreshold: 3
       volumes:
         - name: templates
           configMap:

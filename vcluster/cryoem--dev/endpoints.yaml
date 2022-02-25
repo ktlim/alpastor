@@ -1,0 +1,44 @@
+---
+
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    nginx.ingress.kubernetes.io/backend-protocol: HTTPS
+    nginx.ingress.kubernetes.io/ssl-redirect: "true"
+  name: vcluster
+spec:
+  rules:
+  - host: k8s-cryoem-dev.slac.stanford.edu
+    http:
+      paths:
+      - backend:
+          service:
+            name: vcluster--cryoem--dev
+            port: 
+              number: 443
+        path: /
+        pathType: ImplementationSpecific
+  tls:
+  - hosts: 
+    - k8s-cryoem-dev.slac.stanford.edu
+
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+  name: gangway
+spec:
+  rules:
+  - host: k8s.slac.stanford.edu
+    http:
+      paths:
+      - backend:
+          service:
+            name: gangway
+            port:
+              name: "http"
+        path: /cryoem--dev
+        pathType: Prefix

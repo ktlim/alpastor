@@ -1,0 +1,45 @@
+# Enable HA mode
+enableHA: true
+
+# not supported with k8s yet
+#securityContext:
+#  runAsUser: 15693 # cryo-daq
+#  fsGroup: 3591 # cryo-data
+#  runAsGroup: 3591
+#  runAsNonRoot: true
+
+vcluster:
+  extraArgs:
+  - --oidc-issuer-url=https://dex.slac.stanford.edu
+  - --oidc-client-id=vcluster--usdf-butler
+  - --oidc-username-claim=email
+  - --oidc-groups-claim=groups
+
+storage:
+  persistence: true
+  size: 1Gi
+  className: wekafs--sdf-k8s01
+
+# Scale up syncer replicas
+syncer:
+  replicas: 1
+
+# Scale up etcd
+etcd:
+  replicas: 1
+  storage:
+    persistence: true
+    className: wekafs--sdf-k8s01
+
+# Scale up controller manager
+controller:
+  replicas: 1
+
+# Scale up api server
+api:
+  replicas: 1
+  extraArgs: 
+  - --oidc-issuer-url=https://dex.slac.stanford.edu 
+  - --oidc-client-id=vcluster--usdf-butler
+  - --oidc-username-claim=email
+  - --oidc-groups-claim=groups

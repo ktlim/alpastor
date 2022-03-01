@@ -10,8 +10,8 @@ apply-crunchydata-operator:
 	kubectl apply -k operator 
 
 apply-crunchydata-db:
-	kubectl apply -k .
-	kubectl apply -f service.yaml
+	kubectl apply -f namespace.yaml 
+	kubectl apply -f service.yaml -f crunchydata-postgres.yaml
 
 apply-crunchydata: apply-crunchydata-operator apply-crunchydata-db
 
@@ -24,8 +24,9 @@ apply-zalando-operator:
 	kubectl apply -k  zalando-operator/
 
 apply-zalando-db:
-	kubectl create ns postgres || true
-	kubectl apply -f huge-pages-fix.yaml -f zalando-postgres.yaml
+	#kubectl create ns postgres || true
+	#kubectl apply -f huge-pages-fix.yaml -f zalando-postgres.yaml
+	kubectl apply -k .
 
 apply-zalando: apply-zalando-operator apply-zalando-db
 	 

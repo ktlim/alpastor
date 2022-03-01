@@ -2,7 +2,6 @@ namespace: postgres
 
 resources:
 - namespace.yaml
-- crunchydata-postgres.yaml
+- huge-pages-fix.yaml
+- zalando-postgres.yaml
 
-#patchesStrategicMerge:
-#- service-patch.yaml

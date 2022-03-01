@@ -2,7 +2,7 @@ namespace: postgres
 
 resources:
 - namespace.yaml
-- postgres.yaml
+- crunchydata-postgres.yaml
 
 #patchesStrategicMerge:
 #- service-patch.yaml

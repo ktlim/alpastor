@@ -1,0 +1,8 @@
+namespace: postgres
+
+resources:
+- namespace.yaml
+- postgres.yaml
+
+#patchesStrategicMerge:
+#- service-patch.yaml

@@ -2,15 +2,15 @@
 
 
 
-update-deps:
+update-crunchydata:
 	cd operator/deps/postgres-operator
 	git pull
 
-apply-operator:
+apply-crunchydata:
 	kubectl apply -k operator 
 
-apply-db:
+apply-crunchydata-db:
 	kubectl apply -k .
 	kubectl apply -f service.yaml
 
-apply: apply-operator apply-db
+apply-crunchydata: apply-crunchydata apply-crunchydata-db

@@ -3,6 +3,8 @@ namespace: cryoem-logbook
 resources:
 - mongo-operator.yaml
 - mongo.yaml
+- kafka-operator.yaml
+- kafka.yaml
 
 secretGenerator:
 - name: cryoem-logbook

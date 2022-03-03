@@ -18,6 +18,10 @@ mongo-operator:
 	helm repo update
 	helm template --version 1.11.0 mongodb-operator percona/psmdb-operator > mongo-operator.yaml
 
+kafka-operator:
+	curl -L https://strimzi.io/install/latest?namespace=kafka-operator -o kafka-operator.yaml
+
+
 passwords:
 	mkdir -p etc
 	

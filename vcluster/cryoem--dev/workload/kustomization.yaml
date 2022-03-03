@@ -1,0 +1,24 @@
+namespace: cryoem-logbook
+
+resources:
+- mongo-operator.yaml
+- mongo.yaml
+
+secretGenerator:
+- name: cryoem-logbook
+  literals:
+  - MONGODB_BACKUP_USER=backup
+  - MONGODB_CLUSTER_ADMIN_USER=clusterAdmin
+  - MONGODB_CLUSTER_MONITOR_USER=clusterMonitor
+  - MONGODB_USER_ADMIN_USER=userAdmin
+  - PMM_SERVER_USER=admin
+  files:
+  - MONGODB_BACKUP_PASSWORD=etc/MONGODB_BACKUP_PASSWORD
+  - MONGODB_CLUSTER_ADMIN_PASSWORD=etc/MONGODB_CLUSTER_ADMIN_PASSWORD
+  - MONGODB_CLUSTER_MONITOR_PASSWORD=etc/MONGODB_CLUSTER_MONITOR_PASSWORD
+  - MONGODB_USER_ADMIN_PASSWORD=etc/MONGODB_USER_ADMIN_PASSWORD
+  - PMM_SERVER_PASSWORD=etc/PMM_SERVER_PASSWORD
+
+generatorOptions:
+  disableNameSuffixHash: true
+

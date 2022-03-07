@@ -114,4 +114,10 @@ staticClients:
   - http://localhost:8000
   - http://localhost:18000
   secret: {{ with secret "secret/rubin/usdf-staffrsp-dev/kubernetes" }}{{ index .Data.data "client-secret" }}{{ end }}
-
+- name: vcluster--usdf-butler
+  id: vcluster--usdf-butler
+  redirectURIs:
+  - https://k8s.slac.stanford.edu/usdf-butler/callback
+  - http://localhost:8000
+  - http://localhost:18000
+  secret: {{ with secret "secret/rubin/usdf-butler/kubernetes" }}{{ index .Data.data "client-secret" }}{{ end }}

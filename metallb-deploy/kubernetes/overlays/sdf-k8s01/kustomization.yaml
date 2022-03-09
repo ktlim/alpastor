@@ -2,14 +2,17 @@
 namespace: metallb-system
 
 resources:
-  - metallb.yaml
-  - namespace.yaml
+- metallb.yaml
+- namespace.yaml
 
 configMapGenerator:
 - name: config
   files:
     - configs/config
 
+#patches:
+#- imagepull-patch.yaml
+ 
 #secretGenerator:
 #- name: memberlist
 #  files:
@@ -18,3 +21,10 @@ configMapGenerator:
 generatorOptions:
  disableNameSuffixHash: true
 
+images:
+- name: quay.io/metallb/speaker
+  newName: yee379/speaker
+  newTag: v0.12.1-layer2-announce-limit
+- name: quay.io/metallb/controller
+  newName: yee379/controller
+  newTag: v0.12.1-layer2-announce-limit

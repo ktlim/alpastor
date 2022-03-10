@@ -17,19 +17,20 @@ spec:
       cpu: '32'
       memory: 128Gi
   volume:
-    size: 1Gi
+    size: 1000Gi
   numberOfInstances: 2
   users:
-    zalando:  # database owner
-    - superuser
+    rubin:  # database owner
+    #- superuser
     - createdb
-    foo_user: []  # role for application foo
+    #butler:
+    #- createdb
   databases:
-    foo: zalando  # dbname: owner
-  preparedDatabases:
-    bar: {}
+    butler: rubin  # dbname: owner
+  #preparedDatabases:
+  #  bar: {}
   postgresql:
-    version: "13"
+    version: "14"
   # required to avoid huge pages issues
   additionalVolumes:
   - name: pg-init-config-9
@@ -69,7 +70,7 @@ spec:
       configMap:
         name: pg-init-config
   connectionPooler:
-    numberOfInstances: 1
+    numberOfInstances: 2
     mode: session
     schema: "pooler"
     user: "pooler"

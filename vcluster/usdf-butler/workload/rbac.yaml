@@ -27,7 +27,13 @@ metadata:
   name: admin
 subjects:
 - kind: User
-  name: ywangw.slac.stanford.edu
+  name: ywangw@slac.stanford.edu
+  apiGroup: rbac.authorization.k8s.io
+- kind: User
+  name: bjwhiteslac.stanford.edu
+  apiGroup: rbac.authorization.k8s.io
+- kind: User
+  name: yuyiguo@slac.stanford.edu
   apiGroup: rbac.authorization.k8s.io
 roleRef:
   kind: ClusterRole

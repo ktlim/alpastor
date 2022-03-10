@@ -31,5 +31,5 @@ apply-zalando-db:
 apply-zalando: apply-zalando-operator apply-zalando-db
 	 
 apply: apply-zalando
-
+	kubectl apply -f service.yaml
 

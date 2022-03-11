@@ -1,29 +1,29 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 
-namespace: monitoring-prod
+namespace: monitoring-system
 
 resources:
 - ns.yaml
-#- cm.yaml
-- pv.yaml
 - sts.yaml
 - endpoints.yaml
 
 configMapGenerator:
 - name: grafana
   files:
-  - grafana.ini
+  - etc/grafana.ini
 
 secretGenerator:
 - name: grafana
   files:
   - etc/admin-user
   - etc/admin-password
+  - etc/oidc-id
+  - etc/oidc-secret
   literals:
   - ldap-toml=""
 
 images:
 - name: grafana/grafana
-  # newTag: 6.6.0 
-  newTag: 7.1.3
+  #newTag: 7.1.3
+  newTag: 8.4.3

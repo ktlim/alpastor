@@ -4,7 +4,6 @@ VAULT_ADDR=https://vault.slac.stanford.edu
 NAMESPACE ?= vault--prod
 DATE ?= $(shell date +%Y%m%d)
 
-.PHONY: unseal unseal-0 unseal-1 unseal-2
 
 define unseal
 	kubectl exec -it vault-$(1) -- vault operator unseal -address=https://vault-$(1).slac.stanford.edu:8200
@@ -39,6 +38,7 @@ stdout:
 	kubectl kustomize . 
 
 # need to setup vault-{0,1,2}.slac.stanford.edu to point to pods
+.PHONY: unseal-1 
 
 unseal-0:
 	$(call unseal-three,0)
@@ -48,7 +48,7 @@ status-0:
 	$(call status,0)
 restart-0: delete-0 unseal-0
 
-unseal-1:
+unseal-1:: 
 	$(call unseal-threel,1)
 delete-1:
 	$(call delete-replica,1)

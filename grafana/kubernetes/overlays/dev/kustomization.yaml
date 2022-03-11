@@ -13,7 +13,7 @@ resources:
 configMapGenerator:
 - name: grafana
   files:
-  - grafana.ini
+  - etc/grafana.ini
 
 secretGenerator:
 - name: grafana
@@ -27,4 +27,5 @@ secretGenerator:
 
 images:
 - name: grafana/grafana
-  newTag: 8.0.3
+  #newTag: 8.0.5
+  newTag: 7.5.9

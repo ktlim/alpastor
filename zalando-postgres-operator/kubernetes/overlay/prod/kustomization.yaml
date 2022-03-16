@@ -1,0 +1,11 @@
+namespace: postgres-operator
+
+resources:
+#- helm.yaml
+- postgres-operator/manifests/configmap.yaml
+- postgres-operator/manifests/operator-service-account-rbac.yaml
+- postgres-operator/manifests/postgres-operator.yaml
+- postgres-operator/manifests/api-service.yaml
+
+patchesStrategicMerge:
+- configmap.yaml

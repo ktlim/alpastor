@@ -1,0 +1,14 @@
+namespace: auth-system
+
+bases:
+- ../../base
+
+secretGenerator:
+- name: vouch-config
+  files:
+  - etc/config.yml
+  - etc/.secrets/oidc-secret
+
+patchesStrategicMerge:
+- ingress-patch.yaml
+

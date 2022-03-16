@@ -66,12 +66,21 @@ staticClients:
   redirectURIs:
   - 'https://grafana-dev.slac.stanford.edu/login/generic_oauth'
   secret: {{ with secret "secret/dexidp/staticClients/grafana-dev" }}{{ .Data.data.secret }}{{ end }}
+- name: vouch
+  id: vouch
+  redirectURIs:
+  - https://vouch.slac.stanford.edu/auth
+  secret: {{ with secret "secret/dexidp/staticClients/vouch" }}{{ .Data.data.secret }}{{ end }}
 - name: vouch-dev
   id: vouch-dev
   redirectURIs:
   - https://vouch-dev.slac.stanford.edu/auth
-  #- "https://echo-server.slac.stanford.edu"
   secret: {{ with secret "secret/dexidp/staticClients/vouch-dev" }}{{ .Data.data.secret }}{{ end }}
+- name: gafaelfawr
+  id: {{ with secret "secret/dexidp/staticClients/gafaelfawr" }}{{ index .Data.data "oidc-client-id" }}{{ end }}
+  redirectURIs:
+  - https://gafaelfawr.slac.stanford.edu/auth
+  secret: {{ with secret "secret/dexidp/staticClients/gafaelfawr" }}{{ index .Data.data "oidc-client-secret" }}{{ end }}
 - name: rubin-usdf-staffrsp-dev
   id: {{ with secret "secret/rubin/usdf-staffrsp-dev/gafaelfawr" }}{{ index .Data.data "oidc-client-id" }}{{ end }}
   redirectURIs:

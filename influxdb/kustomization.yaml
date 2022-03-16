@@ -1,0 +1,24 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+namespace: monitoring-system
+
+configMapGenerator:
+- name: influxdb-config
+  files:
+  - influxdb.conf
+
+resources:
+- ns.yaml
+- pv.yaml
+- endpoints.yaml
+- sts.yaml
+
+patchesStrategicMerge:
+- metallb.yaml
+#- loadBalancer.yaml
+
+images:
+- name: influxdb
+  #newTag: 1.7.9
+  newTag: 1.8.10

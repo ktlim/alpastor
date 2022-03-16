@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: influxdb
+spec:
+  template:
+    spec:
+      nodeSelector:
+        group: infra
+        monitoring/influxdb: 'true'
+
+---
+
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: grafana
+spec:
+  template:
+    spec:
+      nodeSelector:
+        group: infra
+        monitoring/grafana: 'true'

@@ -1,0 +1,66 @@
+
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: influxdb
+spec:
+  serviceName: "influxdb"
+  replicas: 1
+  selector:
+    matchLabels:
+      app: influxdb
+  template:
+    metadata:
+      labels:
+        app: influxdb
+    spec:
+      containers:
+      - name: influxdb
+#        command: [ "bash" ,"-c", "sleep infinity" ]
+        image: influxdb:1.7.10
+        startupProbe:
+          exec:
+            command:
+            - influx
+            - -execute 
+            - "show databases"
+          periodSeconds: 10
+          failureThreshold: 30
+        livenessProbe:
+          exec:
+            command:
+            - influx
+            - -execute
+            - "show databases"
+          periodSeconds: 10
+          failureThreshold: 3
+        readinessProbe:
+          httpGet:
+            path: /ping
+            port: api
+          periodSeconds: 10
+        ports:
+        - containerPort: 8086
+          name: api
+        volumeMounts:
+        - name: data
+          mountPath: /var/lib/influxdb
+        - name: config
+          mountPath: /etc/influxdb/
+      volumes:
+        - name: config
+          configMap:
+            name: influxdb-config
+            items:
+            - key: influxdb.conf
+              path: influxdb.conf
+  volumeClaimTemplates:
+  - metadata:
+      name: data
+    spec:
+      accessModes: [ "ReadWriteOnce" ]
+      resources:
+        requests:
+          storage: 10000Gi
+
+

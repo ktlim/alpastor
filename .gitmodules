@@ -13,3 +13,6 @@
 [submodule "vcluster/cryoem--dev/workload/explgbk-docker"]
 	path = vcluster/cryoem--dev/workload/explgbk-docker
 	url = git@github.com:slaclab/explgbk-docker.git
+[submodule "zalando-postgres-operator/kubernetes/overlay/prod/postgres-operator"]
+	path = zalando-postgres-operator/kubernetes/overlay/prod/postgres-operator
+	url = https://github.com/zalando/postgres-operator.git

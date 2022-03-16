@@ -1,0 +1,54 @@
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: echo-server
+  annotations:
+    ### gafaelfawr needs to be on same hostname path as app protecting it for now
+    #nginx.ingress.kubernetes.io/auth-signin: "https://gafaelfawr.slac.stanford.edu/login"
+    #nginx.ingress.kubernetes.io/auth-url: "https://gafaelfawr.slac.stanford.edu/auth?scope=exec:notebook&notebook=true"
+    ### vouch
+    nginx.ingress.kubernetes.io/auth-signin: "https://vouch.slac.stanford.edu/login?url=$scheme://$http_host$request_uri&vouch-failcount=$auth_resp_failcount&X-Vouch-Token=$auth_resp_jwt&error=$auth_resp_err"
+    nginx.ingress.kubernetes.io/auth-url: https://vouch.slac.stanford.edu/validate
+    nginx.ingress.kubernetes.io/auth-response-headers: X-Vouch-User
+    nginx.ingress.kubernetes.io/auth-snippet: |
+      # these return values are used by the @error401 call
+      auth_request_set $auth_resp_jwt $upstream_http_x_vouch_jwt;
+      auth_request_set $auth_resp_err $upstream_http_x_vouch_err;
+      auth_request_set $auth_resp_failcount $upstream_http_x_vouch_failcount;
+spec:
+  tls:
+  - hosts:
+      - echo-server.slac.stanford.edu
+  rules:
+  - host: echo-server.slac.stanford.edu
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: echo
+            port:
+              number: 80
+
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: echo-server-direct
+spec:
+  tls:
+  - hosts:
+      - echo-server-direct.slac.stanford.edu
+  rules:
+  - host: echo-server-direct.slac.stanford.edu
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: echo
+            port:
+              number: 80

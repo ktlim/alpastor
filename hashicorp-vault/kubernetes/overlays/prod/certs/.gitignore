@@ -1,0 +1,4 @@
+vault--prod.ca
+vault--prod.crt
+vault--prod.csr
+vault--prod.key

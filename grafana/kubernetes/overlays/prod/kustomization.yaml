@@ -16,10 +16,10 @@ configMapGenerator:
 secretGenerator:
 - name: grafana
   files:
-  - etc/admin-user
-  - etc/admin-password
-  - etc/oidc-id
-  - etc/oidc-secret
+  - etc/.secrets/admin-user
+  - etc/.secrets/admin-password
+  - etc/.secrets/oidc-id
+  - etc/.secrets/oidc-secret
   literals:
   - ldap-toml=""
 

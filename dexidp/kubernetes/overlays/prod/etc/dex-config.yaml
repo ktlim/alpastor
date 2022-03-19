@@ -49,6 +49,7 @@ staticClients:
 - name: vault
   id: vault
   redirectURIs:
+  - 'http://localhost:8250/oidc/callback'
   - 'https://vault.slac.stanford.edu/ui/vault/auth/oidc/oidc/callback'
   secret: {{ with secret "secret/dexidp/staticClients/vault" }}{{ .Data.data.secret }}{{ end }}
 - name: rubin-data-dev

@@ -10,6 +10,22 @@ web:
 telemetry:
   http: 0.0.0.0:5558
 connectors:
+- type: oidc
+  id: cilogon
+  name: CILogon
+  config:
+    issuer: https://cilogon.org
+    clientID: {{ with secret "secret/dexidp/connectors/cilogon" }}{{ index .Data.data "client-id" }}{{ end }} 
+    clientSecret: {{ with secret "secret/dexidp/connectors/cilogon" }}{{ index .Data.data "client-secret" }}{{ end }}
+    redirectURI: https://dex.slac.stanford.edu/callback
+    insecureSkipEmailVerified: true
+    scopes:
+    - org.cilogon.userinfo
+    - profile
+    #emailAttr: eppn
+    # no email, as we need to overload it from the org.cilogon.userinfo scope
+    claimMapping:
+      email: eppn
 - type: saml
   id: saml
   name: SLAC SSO
@@ -24,6 +40,8 @@ connectors:
     #groupsAttr: groups
     oauth2:
       skipApprovalScreen: true
+    claimMapping:
+      preferred_username: http://schemas.microsoft.com/ws/2008/06/identity/claims/windowsaccountname
 staticClients:
 - name: k8s-login
   id: k8s-login

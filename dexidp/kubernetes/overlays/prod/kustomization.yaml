@@ -6,6 +6,9 @@ bases:
 resources:
 - ns.yaml
 
+patches:
+- deploy-patch.yaml
+
 secretGenerator:
 - name: dex-certs
   files:

@@ -161,3 +161,8 @@ staticClients:
   - http://localhost:8000
   - http://localhost:18000
   secret: {{ with secret "secret/rubin/usdf-rucio/kubernetes" }}{{ index .Data.data "client-secret" }}{{ end }}
+- name: sdf-login
+  id: sdf-login
+  redirectURIs:
+  - /device/callback
+  secret: "{{ with secret "secret/tid/sdf/sdf-login" }}{{ index .Data.data "oidc-client-secret" }}{{ end }}"

@@ -7,6 +7,15 @@ spec:
   replicas: 3 
   template:
     spec:
+      containers:
+      - name: vault
+        env:
+        - name: HTTP_PROXY
+          value: http://squid.slac.stanford.edu:3128
+        - name: HTTPS_PROXY
+          value: http://squid.slac.stanford.edu:3128
+        - name: NO_PROXY
+          value: .vault-internal,localhost,.localdomain,squid.slac.stanford.edu,.slac.stanford.edu
       tolerations:
       - key: node-role.kubernetes.io/master
         effect: NoSchedule
@@ -16,14 +25,6 @@ spec:
           - weight: 1
             podAffinityTerm:
               topologyKey: "kubernetes.io/hostname"
-        #nodeAffinity:
-        #  requiredDuringSchedulingIgnoredDuringExecution:
-        #    nodeSelectorTerms:
-        #    - matchExpressions:
-        #      - key: type # Replace this with corresponding worker node label's key
-        #        operator: In
-        #        values:
-        #        - general # Replace this with corresponding worker node label's value
   volumeClaimTemplates:
   - metadata:
       name: data

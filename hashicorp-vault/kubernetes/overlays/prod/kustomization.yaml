@@ -26,3 +26,8 @@ secretGenerator:
 
 generatorOptions:
  disableNameSuffixHash: true
+
+
+images:
+- name: hashicorp/vault
+  newTag: 1.9.4

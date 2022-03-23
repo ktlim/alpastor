@@ -68,6 +68,18 @@ connectors:
     nameIDPolicyFormat: persistent
     oauth2:
       skipApprovalScreen: true
+- type: oidc
+  id: cilogon
+  name: CILogon
+  issuer: https://cilogon.org/
+  clientID: {{ with secret "secret/dexidp/connectors/cilogon" }}{{ index .Data.data "client-id" }}{{ end }}
+  clientSecret: {{ with secret "secret/dexidp/connectors/cilogon" }}{{ index .Data.data "client-secret" }}{{ end }}
+  redirectURI: http://dex.slac.stanford.edu/callback
+  basicAuthUnsupported: true
+  scopes:
+  - org.cilogon.userinfo
+  - email
+  - profile
 staticClients:
 - name: k8s-login
   id: k8s-login

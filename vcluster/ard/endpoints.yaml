@@ -10,7 +10,7 @@ metadata:
   name: vcluster
 spec:
   rules:
-  - host: k8s-ard-api.slac.stanford.edu
+  - host: k8s-ard.slac.stanford.edu
     http:
       paths:
       - backend:
@@ -22,7 +22,7 @@ spec:
         pathType: ImplementationSpecific
   tls:
   - hosts: 
-    - k8s-ard-api.slac.stanford.edu
+    - k8s-ard.slac.stanford.edu
 
 ---
 apiVersion: networking.k8s.io/v1

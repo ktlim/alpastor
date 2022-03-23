@@ -3,7 +3,7 @@
 
 # Scale up syncer replicas
 syncer:
-  image: loftsh/vcluster:0.6.0-beta.0 
+  image: loftsh/vcluster:0.7.1
   replicas: 1
 
 # Scale up etcd
@@ -11,7 +11,6 @@ etcd:
   replicas: 1
   storage:
     persistence: true
-    className: local-storage
 
 # Scale up controller manager
 controller:
@@ -21,7 +20,7 @@ controller:
 api:
   replicas: 1
   extraArgs: 
-  - --oidc-issuer-url=https://dex-dev.slac.stanford.edu 
+  - --oidc-issuer-url=https://dex.slac.stanford.edu 
   - --oidc-client-id=vcluster--ard
   - --oidc-username-claim=name
   - --oidc-groups-claim=groups

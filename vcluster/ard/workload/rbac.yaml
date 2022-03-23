@@ -6,11 +6,11 @@ metadata:
   name: cluster-admins
 subjects:
 - kind: User
-  name: "https://dex-dev.slac.stanford.edu#ytl"
+  name: "ytl@slac.stanford.edu"
   apiGroup: rbac.authorization.k8s.io
-#- kind: User
-#  name: "https://dex-dev.slac.stanford.edu#ppascual"
-#  apiGroup: rbac.authorization.k8s.io
+- kind: User
+  name: "ppascual@slac.stanford.edu"
+  apiGroup: rbac.authorization.k8s.io
 roleRef:
   kind: ClusterRole
   name: cluster-admin
@@ -24,7 +24,10 @@ metadata:
   name: admins
 subjects:
 - kind: User
-  name: "https://dex-dev.slac.stanford.edu#ppascual"
+  name: "jgarra@slac.stanford.edu"
+  apiGroup: rbac.authorization.k8s.io
+- kind: User
+  name: "cmayes@slac.stanford.edu"
   apiGroup: rbac.authorization.k8s.io
 roleRef:
   kind: ClusterRole

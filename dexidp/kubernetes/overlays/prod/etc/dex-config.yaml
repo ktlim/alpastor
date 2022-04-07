@@ -161,6 +161,13 @@ staticClients:
   - http://localhost:8000
   - http://localhost:18000
   secret: {{ with secret "secret/rubin/usdf-rucio/kubernetes" }}{{ index .Data.data "client-secret" }}{{ end }}
+- name: vcluster--usdf-qserv--dev
+  id: vcluster--usdf-qserv--dev
+  redirectURIs:
+  - https://k8s.slac.stanford.edu/usdf-qserv--dev/callback
+  - http://localhost:8000
+  - http://localhost:18000
+  secret: {{ with secret "secret/rubin/usdf-qserv-dev/kubernetes" }}{{ index .Data.data "client-secret" }}{{ end }}
 - name: sdf-login
   id: sdf-login
   redirectURIs:

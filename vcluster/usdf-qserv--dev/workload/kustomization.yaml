@@ -1,7 +1,0 @@
-namespace: postgres
-
-resources:
-- namespace.yaml
-- huge-pages-fix.yaml
-- zalando-postgres.yaml
-

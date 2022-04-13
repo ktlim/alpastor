@@ -79,12 +79,16 @@ spec:
               value: /run/secrets/admin_password/admin-password
             - name: GF_INSTALL_PLUGINS
               value: http://yum.slac.stanford.edu/grafana/grafana-piechart-panel.zip;grafana-piechart-panel,marcusolsson-treemap-panel,yesoreyeram-boomtable-panel,jdbranham-diagram-panel,natel-discrete-panel,mtanda-histogram-panel,boazreicher-mosaicplot-panel,michaeldmoore-scatter-panel,boazreicher-sierraplot-panel
+            - name: GF_RENDERING_SERVER_URL
+              value: http://grafana-image-renderer:8081/render
+            - name: GF_RENDERING_CALLBACK_URL
+              value: https://grafana.slac.stanford.edu:443/
             - name: HTTP_PROXY
               value: http://squid.slac.stanford.edu:3128
             - name: HTTPS_PROXY
               value: http://squid.slac.stanford.edu:3128
             - name: NO_PROXY
-              value: 127.0.0.0/8,10.0.0.0/8,172.16.0.0/12,192.168.0.0/16,.slac.stanford.edu,.cluster.local
+              value: 127.0.0.0/8,10.0.0.0/8,172.16.0.0/12,192.168.0.0/16,grafana-image-renderer,.slac.stanford.edu,.cluster.local
           livenessProbe:
             failureThreshold: 10
             httpGet:

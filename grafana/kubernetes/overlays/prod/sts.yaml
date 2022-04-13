@@ -57,6 +57,8 @@ spec:
               subPath: grafana.ini
             - name: data
               mountPath: "/var/lib/grafana"
+            #- name: plugins
+            #  mountPath: "/var/lib/grafana/plugins/"
             - name: admin-password
               mountPath: "/run/secrets/admin_password"
           ports:
@@ -76,7 +78,7 @@ spec:
             - name: GF_SECURITY_ADMIN_PASSWORD__FILE
               value: /run/secrets/admin_password/admin-password
             - name: GF_INSTALL_PLUGINS
-              value: http://yum.slac.stanford.edu/grafana/grafana-piechart-panel.zip;grafana-piechart-panel
+              value: http://yum.slac.stanford.edu/grafana/grafana-piechart-panel.zip;grafana-piechart-panel,marcusolsson-treemap-panel,yesoreyeram-boomtable-panel,jdbranham-diagram-panel,natel-discrete-panel,mtanda-histogram-panel,boazreicher-mosaicplot-panel,michaeldmoore-scatter-panel,boazreicher-sierraplot-panel
             - name: HTTP_PROXY
               value: http://squid.slac.stanford.edu:3128
             - name: HTTPS_PROXY
@@ -99,6 +101,8 @@ spec:
       volumes:
         - name: config
           emptyDir: {}
+        #- name: plugins
+        #  emptyDir: {}
         - name: template
           configMap:
             name: grafana
@@ -115,4 +119,4 @@ spec:
       accessModes: [ "ReadWriteOnce" ]
       resources:
         requests:
-          storage: 500Mi
+          storage: 5Gi

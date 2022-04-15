@@ -25,6 +25,7 @@ spec:
     - createdb
     #butler:
     #- createdb
+    monitoring: []
   databases:
     butler: rubin  # dbname: owner
   #preparedDatabases:

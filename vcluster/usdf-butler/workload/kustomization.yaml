@@ -4,4 +4,9 @@ resources:
 - namespace.yaml
 - huge-pages-fix.yaml
 - zalando-postgres.yaml
+- telegraf.yaml
 
+configMapGenerator:
+- name: telegraf-postgres
+  files:
+  - telegraf.conf

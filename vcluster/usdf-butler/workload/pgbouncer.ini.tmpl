@@ -22,8 +22,15 @@ client_tls_sslmode = require
 client_tls_key_file = /etc/ssl/certs/pgbouncer.key
 client_tls_cert_file = /etc/ssl/certs/pgbouncer.crt
 
-log_connections = 0
-log_disconnections = 0
+log_connections = 1
+log_disconnections = 1 
+
+# prevent tcp defaults killing connections ~15mins
+tcp_keepalive=1
+tcp_keepcnt=1
+tcp_keepidle=1
+tcp_keepintvl=1
+tcp_user_timeout=1000
 
 # How many server connections to allow per user/database pair.
 default_pool_size = $CONNECTION_POOLER_DEFAULT_SIZE

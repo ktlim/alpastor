@@ -1,0 +1,5 @@
+namespace: monitoring-system
+
+resources:
+- helm.yaml
+- ingress.yaml

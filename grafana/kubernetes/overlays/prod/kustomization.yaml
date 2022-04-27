@@ -26,5 +26,4 @@ secretGenerator:
 
 images:
 - name: grafana/grafana
-  #newTag: 7.1.3
-  newTag: 8.4.5
+  newTag: 8.4.7

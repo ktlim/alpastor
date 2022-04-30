@@ -1,0 +1,12 @@
+configmap:
+  setup: |2-
+    #!/bin/sh
+    set -eu
+    echo "nothing to do"
+  teardown: |-
+    #!/bin/sh
+    set -eu
+    echo "nothing to do"
+
+image:
+  pullPolicy: Always

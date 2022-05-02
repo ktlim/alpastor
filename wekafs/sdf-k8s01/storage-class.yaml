@@ -12,6 +12,7 @@ parameters:
   volumeType: dir/v1
   filesystemName: sdf-k8s01
   capacityEnforcement: HARD
+  permissions: "0777"
   # name of the secret that stores API credentials for a cluster
   # change the name of secret to match secret of a particular cluster (if you have several Weka clusters)
   csi.storage.k8s.io/provisioner-secret-name: &secretName csi-wekafs-api-secret

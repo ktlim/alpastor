@@ -10,13 +10,19 @@ endef
 setup-helm:
 	git clone https://github.com/rancher/local-path-provisioner.git || true
 
-supercdms: setup-helm
-	$(call helm,'sdf-group-supercdms')
-
 cleanup-helm:
 	rm -rf local-path-provisioner
 
-update: supercdms
+supercdms: setup-helm
+	$(call helm,'sdf-group-supercdms')
+
+ard: setup-helm
+	$(call helm,'sdf-group-ard')
+
+rubin: setup-helm
+	$(call helm,'sdf-group-rubin')
+
+update: supercdms ard rubin
 
 apply:
 	kubectl apply -k .

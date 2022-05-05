@@ -43,3 +43,8 @@ api:
   - --oidc-client-id=vcluster--usdf-staffrsp--dev
   - --oidc-username-claim=email
   - --oidc-groups-claim=groups
+
+sync:
+  nodes:
+    enabled: true
+    nodeSelector: edu.stanford.slac.sdf.project=rubin

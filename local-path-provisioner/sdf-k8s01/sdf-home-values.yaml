@@ -1,0 +1,17 @@
+nodePathMap:
+  - {node: DEFAULT_PATH_FOR_NON_LISTED_NODES, paths: [/sdf/home/]}
+
+storageClass:
+  create: true
+  name: sdf-home
+  # bit of a quandry here: We do not want the PV's to be left around, but technically we do not delete any data after the PV is destroyed. Retain means that the data is lect around, however, keeps the PV around too. Delete will remove the PV, but technically means that teh data should also be removed. 
+  # we choose Delete just so we dont' have to manage all the PV's around, but need to communicate to users that data is not actually deleted.
+  #reclaimPolicy: Retain
+  reclaimPolicy: Delete
+  provisionerName: local-path-provisioner.local/sdf-home
+
+configmap:
+  name: sdf-home
+
+#image:
+#  pullPolicy: Always

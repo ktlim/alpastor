@@ -13,6 +13,9 @@ setup-helm:
 cleanup-helm:
 	rm -rf local-path-provisioner
 
+home: setup-helm
+	$(call helm,'sdf-home')
+
 supercdms: setup-helm
 	$(call helm,'sdf-group-supercdms')
 
@@ -21,8 +24,10 @@ ard: setup-helm
 
 rubin: setup-helm
 	$(call helm,'sdf-group-rubin')
+	$(call helm,'sdf-group-rubin-datasets')
+	$(call helm,'sdf-group-rubin-scratch')
 
-update: supercdms ard rubin
+update: home supercdms ard rubin
 
 apply:
 	kubectl apply -k .

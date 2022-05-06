@@ -5,9 +5,12 @@ namespace: local-path-storage
 
 resources:
 - ns.yaml
+- sdf-home-helm.yaml
 - sdf-group-supercdms-helm.yaml
 - sdf-group-ard-helm.yaml
 - sdf-group-rubin-helm.yaml
+- sdf-group-rubin-datasets-helm.yaml
+- sdf-group-rubin-scratch-helm.yaml
 
 images:
 - name: rancher/local-path-provisioner

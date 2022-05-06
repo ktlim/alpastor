@@ -1,0 +1,13 @@
+clusterName: "vcluster--usdf-panda--dev"
+httpPath: "/usdf-panda--dev/"
+customHTMLTemplatesDir: "/gangway/templates/"
+apiServerURL: "https://k8s-usdf-panda-dev.slac.stanford.edu:443"
+authorizeURL: "https://dex.slac.stanford.edu/auth"
+tokenURL: "https://dex.slac.stanford.edu/token"
+audience: "https://dex.slac.stanford.edu/userinfo"
+clientID: "$CLIENTID"
+clientSecret: "$CLIENTSECRET"
+redirectURL: "https://k8s.slac.stanford.edu/usdf-panda--dev/callback"
+scopes: ["openid", "profile", "email", "offline_access", "groups" ]
+usernameClaim: "email"
+emailClaim: "email"

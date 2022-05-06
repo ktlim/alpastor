@@ -1,0 +1,17 @@
+namespace: vcluster--usdf-panda--dev
+
+resources:
+- gangway.yaml
+- endpoints.yaml
+
+configMapGenerator:
+- name: templates
+  files:
+  - etc/templates/commandline.tmpl
+  - etc/templates/home.tmpl
+
+secretGenerator:
+- name: gangway
+  files:
+  - gangway.yaml=etc/.gangway.yaml
+  - session-key=etc/.session-key

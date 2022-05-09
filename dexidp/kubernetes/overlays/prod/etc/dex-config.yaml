@@ -175,6 +175,13 @@ staticClients:
   - http://localhost:8000
   - http://localhost:18000
   secret: {{ with secret "secret/rubin/usdf-panda-dev/kubernetes" }}{{ index .Data.data "client-secret" }}{{ end }}
+- name: vcluster--coact--dev
+  id: vcluster--coact--dev
+  redirectURIs:
+  - https://k8s.slac.stanford.edu/coact--dev/callback
+  - http://localhost:8000
+  - http://localhost:18000
+  secret: {{ with secret "secret/tid/coact--dev/kubernetes" }}{{ index .Data.data "client-secret" }}{{ end }}
 - name: sdf-login
   id: sdf-login
   redirectURIs:

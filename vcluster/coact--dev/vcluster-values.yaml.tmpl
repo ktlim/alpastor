@@ -26,6 +26,7 @@ syncer:
 
 # Scale up etcd
 etcd:
+  image: k8s.gcr.io/etcd:3.5.1-0
   replicas: 1
   storage:
     persistence: true
@@ -37,6 +38,7 @@ controller:
 
 # Scale up api server
 api:
+  image: k8s.gcr.io/kube-apiserver:${K8S_VERSION}
   replicas: 1
   extraArgs: 
   - --oidc-issuer-url=${OIDC_IDP}
@@ -44,7 +46,12 @@ api:
   - --oidc-username-claim=email
   - --oidc-groups-claim=groups
 
+controller:
+  image: k8s.gcr.io/kube-controller-manager:${K8S_VERSION}
+
 sync:
   nodes:
     enabled: false
     #nodeSelector: edu.stanford.slac.sdf.project=rubin
+
+

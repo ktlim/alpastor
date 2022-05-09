@@ -19,5 +19,5 @@ export SECRET_PATH=secret/tid/${NAME}/kubernetes
 
 export OIDC_IDP=https://dex.slac.stanford.edu
 
-export VCLUSTER_VERSION=v0.7.1
-export K8S_VERSION=1.23.1
+export VCLUSTER_VERSION=v0.8.0
+export K8S_VERSION=v1.23.2

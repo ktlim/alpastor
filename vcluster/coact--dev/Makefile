@@ -3,7 +3,7 @@ NAMEPACE ?= vcluster--coact--dev
 SECRET_PATH ?= secret/tid/coact--dev/kubernetes
 COOKIE_SECRET_PATH ?= secret/tid/k8s
 KUBERNETES_DISTRO ?= k8s
-VCLUSTER_CHART ?= v0.7.1
+VCLUSTER_CHART ?= v0.8.0
 
 make:
 	source ./env && envsubst < Makefile.tmpl > Makefile

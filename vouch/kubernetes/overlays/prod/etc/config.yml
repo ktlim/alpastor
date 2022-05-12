@@ -2,24 +2,49 @@
 # bare minimum to get Vouch Proxy running with OpenID Connect (such as okta)
 
 vouch:
+
+  logLevel: debug
   # domains:
   # valid domains that the jwt cookies can be set into
   # the callback_urls will be to these domains
-  domains:
-  - slac.stanford.edu
-  - sdf.slac.stanford.edu
+  #domains:
+  #- slac.stanford.edu
+  #- sdf.slac.stanford.edu
 
   # - OR -
   # instead of setting specific domains you may prefer to allow all users...
   # set allowAllUsers: true to use Vouch Proxy to just accept anyone who can authenticate at the configured provider
   # and set vouch.cookie.domain to the domain you wish to protect
-  # allowAllUsers: true
-
+  allowAllUsers: true
   cookie:
     # allow the jwt/cookie to be set into http://yourdomain.com (defaults to true, requiring https://yourdomain.com) 
     secure: false
+    maxAge: 900
     # vouch.cookie.domain must be set when enabling allowAllUsers
-    # domain: yourdomain.com
+    domain: slac.stanford.edu
+    name: slac-vouch
+
+  jwt:
+    maxAge: 900
+
+  headers:
+    # idtoken: X-Vouch-IdP-IdToken
+    jwt: X-Vouch-Token
+    querystring: access_token
+    redirect: X-Vouch-Requested-URI
+    claims: 
+    - name
+    - aud
+    - email
+    - family_name
+    - given_name
+    - iss
+    - oidc
+    - sub
+    - token_id
+    idtoken: X-Vouch-IdP-IdToken
+    accesstoken: X-Vouch-IdP-AccessToken
+    refreshtoken: X-Vouch-IdP-RefreshToken
 
 oauth:
   # Generic OpenID Connect

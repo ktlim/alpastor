@@ -12,3 +12,6 @@ secretGenerator:
 patchesStrategicMerge:
 - ingress-patch.yaml
 
+images:
+- name: quay.io/vouch/vouch-proxy
+  newTag: '0.37'

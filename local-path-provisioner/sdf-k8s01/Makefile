@@ -26,6 +26,7 @@ rubin: setup-helm
 	$(call helm,'sdf-group-rubin')
 	$(call helm,'sdf-group-rubin-datasets')
 	$(call helm,'sdf-group-rubin-scratch')
+	$(call helm,'sdf-group-lsst')
 
 update: home supercdms ard rubin
 

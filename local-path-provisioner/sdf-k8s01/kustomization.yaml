@@ -11,6 +11,7 @@ resources:
 - sdf-group-rubin-helm.yaml
 - sdf-group-rubin-datasets-helm.yaml
 - sdf-group-rubin-scratch-helm.yaml
+- sdf-group-lsst-helm.yaml
 
 images:
 - name: rancher/local-path-provisioner

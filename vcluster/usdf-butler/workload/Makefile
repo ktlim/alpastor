@@ -1,21 +1,6 @@
 
 
 
-
-update-crunchydata:
-	cd crunchydata-operator/deps/postgres-operator
-	git pull
-
-apply-crunchydata-operator:
-	kubectl apply -k operator 
-
-apply-crunchydata-db:
-	kubectl apply -f namespace.yaml 
-	kubectl apply -f service.yaml -f crunchydata-postgres.yaml
-
-apply-crunchydata: apply-crunchydata-operator apply-crunchydata-db
-
-
 update-zalando:
 	cd zalando
 	git pull

@@ -1,5 +1,0 @@
-resources:
-- namespace.yaml
-
-bases:
-- deps/postgres-operator/kustomize/install/bases

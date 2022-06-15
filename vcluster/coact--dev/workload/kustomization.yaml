@@ -1,0 +1,8 @@
+namespace: coact
+
+resources:
+- mongo-operator-crds.yaml
+- mongo-operator-rbac.yaml
+- mongo-operator.yaml
+
+

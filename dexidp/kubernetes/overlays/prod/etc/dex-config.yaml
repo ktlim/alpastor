@@ -9,6 +9,17 @@ web:
   #tlsKey: /etc/dex/tls/tls.key
 telemetry:
   http: 0.0.0.0:5558
+logger:
+  level: "debug"
+  format: "json"
+expiry:
+  deviceRequests: "5m"
+  signingKeys: "1h"
+  idTokens: "8h"
+  refreshTokens:
+    reuseInterval: "3s"
+    validIfNotUsedFor: "168h"
+    absoluteLifetime: "720h"
 connectors:
 #- type: oidc
 #  id: cilogon
@@ -161,6 +172,13 @@ staticClients:
   - http://localhost:8000
   - http://localhost:18000
   secret: {{ with secret "secret/rubin/usdf-rucio/kubernetes" }}{{ index .Data.data "client-secret" }}{{ end }}
+- name: vcluster--usdf-rucio--dev
+  id: vcluster--usdf-rucio--dev
+  redirectURIs:
+  - https://k8s.slac.stanford.edu/usdf-rucio--dev/callback
+  - http://localhost:8000
+  - http://localhost:18000
+  secret: {{ with secret "secret/rubin/usdf-rucio--dev/kubernetes" }}{{ index .Data.data "client-secret" }}{{ end }}
 - name: vcluster--usdf-qserv--dev
   id: vcluster--usdf-qserv--dev
   redirectURIs:
@@ -175,6 +193,13 @@ staticClients:
   - http://localhost:8000
   - http://localhost:18000
   secret: {{ with secret "secret/rubin/usdf-panda-dev/kubernetes" }}{{ index .Data.data "client-secret" }}{{ end }}
+- name: vcluster--usdf-jenkins
+  id: vcluster--usdf-jenkins
+  redirectURIs:
+  - https://k8s.slac.stanford.edu/usdf-jenkins/callback
+  - http://localhost:8000
+  - http://localhost:18000
+  secret: {{ with secret "secret/rubin/usdf-jenkins/kubernetes" }}{{ index .Data.data "client-secret" }}{{ end }}
 - name: vcluster--coact--dev
   id: vcluster--coact--dev
   redirectURIs:
@@ -186,4 +211,26 @@ staticClients:
   id: sdf-login
   redirectURIs:
   - /device/callback
-  secret: "{{ with secret "secret/tid/sdf/sdf-login" }}{{ index .Data.data "oidc-client-secret" }}{{ end }}"
+  secret: {{ with secret "secret/tid/sdf/sdf-login" }}{{ index .Data.data "oidc-client-secret" }}{{ end }}
+- name: vcluster--login-pool--dev
+  id: vcluster--login-pool--dev
+  redirectURIs:
+  - https://k8s.slac.stanford.edu/login-pool--dev/callback
+  - http://localhost:8000
+  - http://localhost:18000
+  secret: {{ with secret "secret/tid/login-pool--dev/kubernetes" }}{{ index .Data.data "client-secret" }}{{ end }}
+- name: vcluster--code-server
+  id: {{ with secret "secret/tid/code-server/kubernetes" }}{{ index .Data.data "client-id" }}{{ end }}
+  redirectURIs:
+  - https://k8s.slac.stanford.edu/code-server/callback
+  - http://localhost:8000
+  - http://localhost:18000
+  secret: {{ with secret "secret/tid/code-server/kubernetes" }}{{ index .Data.data "client-secret" }}{{ end }}
+- name: vcluster--ondemand
+  id: {{ with secret "secret/tid/sdf/ondemand/kubernetes" }}{{ index .Data.data "client-id" }}{{ end }}
+  redirectURIs:
+  - https://k8s.slac.stanford.edu/ondemand/callback
+  - http://localhost:8000
+  - http://localhost:18000
+  secret: {{ with secret "secret/tid/sdf/ondemand/kubernetes" }}{{ index .Data.data "client-secret" }}{{ end }}
+

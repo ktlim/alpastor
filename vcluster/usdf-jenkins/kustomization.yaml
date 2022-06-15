@@ -1,0 +1,67 @@
+namespace: vcluster--code-server
+
+resources:
+- gangway.yaml
+- endpoints.yaml
+
+configMapGenerator:
+- name: kustomize
+  literals:
+  - NAME=code-server
+  - API_HOST=k8s-code-server.slac.stanford.edu
+  - GANGWAY_HOST=k8s.slac.stanford.edu
+  - GANGWAY_PATH=/code-server
+  - SERVICE_NAME=vcluster--code-server
+- name: templates
+  files:
+  - etc/templates/commandline.tmpl
+  - etc/templates/home.tmpl
+
+secretGenerator:
+- name: gangway
+  files:
+  - gangway.yaml=etc/.gangway.yaml
+  - session-key=etc/.session-key
+
+replacements:
+- source:
+    kind: ConfigMap
+    name: kustomize
+    fieldPath: data.API_HOST
+  targets:
+  - select:
+      kind: Ingress
+      name: vcluster
+    fieldPaths:
+    - spec.rules.0.host
+    - spec.tls.0.hosts.0
+- source:
+    kind: ConfigMap
+    name: kustomize
+    fieldPath: data.SERVICE_NAME
+  targets:
+  - select:
+      kind: Ingress
+      name: vcluster
+    fieldPaths:
+    - spec.rules.0.http.paths.0.backend.service.name
+- source:
+    kind: ConfigMap
+    name: kustomize
+    fieldPath: data.GANGWAY_HOST
+  targets:
+  - select:
+      kind: Ingress
+      name: gangway
+    fieldPaths:
+    - spec.rules.0.host
+- source:
+    kind: ConfigMap
+    name: kustomize
+    fieldPath: data.GANGWAY_PATH
+  targets:
+  - select:
+      kind: Ingress
+      name: gangway
+    fieldPaths:
+    - spec.rules.0.http.paths.0.path

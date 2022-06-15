@@ -8,6 +8,7 @@ resources:
 
 patches:
 - deploy-patch.yaml
+- endpoint-patch.yaml
 
 secretGenerator:
 - name: dex-certs

@@ -1,0 +1,94 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+ name: ytl
+spec:
+ ports:
+ - port: 8080
+   targetPort: 8080
+   name: http
+ selector:
+   app: code-server
+   user: ytl
+---
+
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: ytl
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /$2
+spec:
+  rules:
+  - host: code-server.slac.stanford.edu
+    http:
+      paths:
+      - path: /ytl(/|$)(.*)
+        pathType: Prefix
+        backend:
+          service:
+            name: ytl
+            port:
+              name: http
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: code-server
+    user: ytl
+  name: ytl
+spec:
+  selector:
+    matchLabels:
+      app: code-server
+      user: ytl
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: code-server
+        user: ytl
+    spec:
+      securityContext:
+        #runAsUser: 7017
+        #runAsGroup: 1051
+        fsGroup: 1051
+      containers:
+      - image: linuxserver/code-server
+        name: code-server
+        env:
+        - name: PUID
+          value: '7017'
+        - name: PGID
+          value: '1051'
+        - name: PASSWORD
+          value: "letmein"
+        - name: PORT
+          value: "8080"
+        - name: LOG_LEVEL
+          value: '5'
+        - name: DEFAULT_WORKSPACE
+          value: /sdf/home/y/ytl
+        volumeMounts:
+        - name: sdf-home
+          mountPath: /sdf/home/y/ytl/
+          subPath: y/ytl
+      volumes:
+      - name: sdf-home
+        persistentVolumeClaim:
+          claimName: sdf-home
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: sdf-home
+spec:
+  storageClassName: sdf-home
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 1Gi
+

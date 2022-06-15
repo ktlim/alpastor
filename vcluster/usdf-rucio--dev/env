@@ -1,0 +1,23 @@
+#!/bin/bash
+
+export NAME=usdf-rucio--dev
+export DELIM_NAME=${NAME//--/-}
+
+export NAMESPACE=vcluster--${NAME}
+
+# gangway
+export GANGWAY_HOST=k8s.slac.stanford.edu
+export GANGWAY_PATH=/${NAME}
+
+# api endpoints
+export API_NAME=k8s-${DELIM_NAME}
+export API_HOST=${API_NAME}.slac.stanford.edu
+
+export SERVICE_NAME=${NAMESPACE}
+
+export SECRET_PATH=secret/rubin/${NAME}/kubernetes
+
+export OIDC_IDP=https://dex.slac.stanford.edu
+
+export VCLUSTER_VERSION=v0.9.1
+export K8S_VERSION=v1.23.2

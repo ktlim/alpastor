@@ -1,0 +1,6 @@
+namespace: code-server
+
+resources:
+- ns.yaml
+- code-server.yaml
+

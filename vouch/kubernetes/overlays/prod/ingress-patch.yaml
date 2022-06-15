@@ -4,6 +4,9 @@ metadata:
   name: vouch
   namespace: auth-system
   annotations:
+    nginx.ingress.kubernetes.io/enable-cors: "true"
+    #nginx.ingress.kubernetes.io/cors-allow-origin: "*"
+    nginx.ingress.kubernetes.io/cors-allow-origin: "https://*.slac.stanford.edu"
 spec:
   rules:
   - host: vouch.slac.stanford.edu

@@ -6,7 +6,7 @@ DATE ?= $(shell date +%Y%m%d)
 
 
 define unseal
-	kubectl exec -it vault-$(1) -- vault operator unseal -address=https://vault-$(1).slac.stanford.edu:8200
+	kubectl exec -it vault-$(1) -- vault operator unseal -tls-skip-verify -address=https://vault-$(1).slac.stanford.edu:8200
 endef
 
 define unseal-three
@@ -63,7 +63,7 @@ status-2:
 	$(call status,2)
 
 raft-status:
-	kubectl -n $(NAMESPACE) exec --stdin=true --tty=true vault-0 -- vault operator raft list-peers -address=https://vault-0.slac.stanford.edu:8200
+	kubectl -n $(NAMESPACE) exec --stdin=true --tty=true vault-0 -- vault operator raft list-peers   -tls-skip-verify -address=https://vault-0.slac.stanford.edu:8200
 
 
 # https://www.vaultproject.io/docs/platform/k8s/helm/examples/ha-with-raft

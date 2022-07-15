@@ -30,4 +30,5 @@ generatorOptions:
 
 images:
 - name: hashicorp/vault
-  newTag: 1.9.4
+  #newTag: 1.9.4
+  newTag: 1.10.4

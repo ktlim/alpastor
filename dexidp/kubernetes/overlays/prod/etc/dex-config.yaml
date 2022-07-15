@@ -193,13 +193,13 @@ staticClients:
   - http://localhost:8000
   - http://localhost:18000
   secret: {{ with secret "secret/rubin/usdf-panda-dev/kubernetes" }}{{ index .Data.data "client-secret" }}{{ end }}
-- name: vcluster--usdf-jenkins
-  id: vcluster--usdf-jenkins
+- name: vcluster--rubin-jenkins-control
+  id: vcluster--rubin-jenkins-control
   redirectURIs:
-  - https://k8s.slac.stanford.edu/usdf-jenkins/callback
+  - https://k8s.slac.stanford.edu/rubin-jenkins-control/callback
   - http://localhost:8000
   - http://localhost:18000
-  secret: {{ with secret "secret/rubin/usdf-jenkins/kubernetes" }}{{ index .Data.data "client-secret" }}{{ end }}
+  secret: {{ with secret "secret/rubin/rubin-jenkins-control/kubernetes" }}{{ index .Data.data "client-secret" }}{{ end }}
 - name: vcluster--coact--dev
   id: vcluster--coact--dev
   redirectURIs:

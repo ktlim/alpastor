@@ -233,4 +233,14 @@ staticClients:
   - http://localhost:8000
   - http://localhost:18000
   secret: {{ with secret "secret/tid/sdf/ondemand/kubernetes" }}{{ index .Data.data "client-secret" }}{{ end }}
+- name: ondemand
+  id: {{ with secret "secret/tid/sdf/ondemand/ondemand-dev" }}{{ index .Data.data "oidc_client_id" }}{{ end }}
+  redirectURIs:
+  - https://ondemand-dev.slac.stanford.edu/oidc
+  - https://ondemand-dev.sdf.slac.stanford.edu/oidc
+  - http://localhost:8000
+  - http://localhost:18000
+  secret: {{ with secret "secret/tid/sdf/ondemand/ondemand-dev" }}{{ index .Data.data "oidc_client_secret" }}{{ end }}
+
+
 

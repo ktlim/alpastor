@@ -4,9 +4,6 @@
 [submodule "kyverno/slac-kyverno-policies"]
 	path = kyverno/slac-kyverno-policies
 	url = git@github.com:slaclab/slac-kyverno-policies.git
-[submodule "vcluster/usdf-butler/workload/postgres-operator"]
-	path = vcluster/usdf-butler/workload/crunchydata-operator/deps/postgres-operator
-	url = https://github.com/CrunchyData/postgres-operator-examples.git
 [submodule "vcluster/usdf-butler/workload/zalando-operator"]
 	path = vcluster/usdf-butler/workload/zalando-operator/deps/zalando-operator
 	url = https://github.com/zalando/postgres-operator.git

@@ -116,6 +116,11 @@ staticClients:
   redirectURIs:
   - https://rubin-data-dev.slac.stanford.edu/login
   secret: {{ with secret "secret/rubin/usdf-staffrsp-dev/gafaelfawr" }}{{ index .Data.data "oidc-client-secret" }}{{ end }}
+- name: rubin-usdf-rsp
+  id: {{ with secret "secret/rubin/usdf-rsp/gafaelfawr" }}{{ index .Data.data "oidc-client-id" }}{{ end }}
+  redirectURIs:
+  - https://usdf-rsp.slac.stanford.edu/login
+  secret: {{ with secret "secret/rubin/usdf-rsp/gafaelfawr" }}{{ index .Data.data "oidc-client-secret" }}{{ end }}
 - name: vcluster--ard
   id: vcluster--ard
   redirectURIs:
@@ -158,6 +163,13 @@ staticClients:
   - http://localhost:8000
   - http://localhost:18000
   secret: {{ with secret "secret/rubin/usdf-staffrsp-dev/kubernetes" }}{{ index .Data.data "client-secret" }}{{ end }}
+- name: vcluster--usdf-rsp
+  id: vcluster--usdf-rsp
+  redirectURIs:
+  - https://k8s.slac.stanford.edu/usdf-rsp/callback
+  - http://localhost:8000
+  - http://localhost:18000
+  secret: {{ with secret "secret/rubin/usdf-rsp/kubernetes" }}{{ index .Data.data "client-secret" }}{{ end }}
 - name: vcluster--usdf-butler
   id: vcluster--usdf-butler
   redirectURIs:

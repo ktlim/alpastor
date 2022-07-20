@@ -1,0 +1,67 @@
+namespace: vcluster--usdf-oga-dmz-dev
+
+resources:
+- gangway.yaml
+- endpoints.yaml
+
+configMapGenerator:
+- name: kustomize
+  literals:
+  - NAME=usdf-oga-dmz-dev
+  - API_HOST=k8s-usdf-oga-dmz-dev.slac.stanford.edu
+  - GANGWAY_HOST=k8s.slac.stanford.edu
+  - GANGWAY_PATH=/usdf-oga-dmz-dev
+  - SERVICE_NAME=vcluster--usdf-oga-dmz-dev
+- name: templates
+  files:
+  - etc/templates/commandline.tmpl
+  - etc/templates/home.tmpl
+
+secretGenerator:
+- name: gangway
+  files:
+  - gangway.yaml=etc/.gangway.yaml
+  - session-key=etc/.session-key
+
+replacements:
+- source:
+    kind: ConfigMap
+    name: kustomize
+    fieldPath: data.API_HOST
+  targets:
+  - select:
+      kind: Ingress
+      name: vcluster
+    fieldPaths:
+    - spec.rules.0.host
+    - spec.tls.0.hosts.0
+- source:
+    kind: ConfigMap
+    name: kustomize
+    fieldPath: data.SERVICE_NAME
+  targets:
+  - select:
+      kind: Ingress
+      name: vcluster
+    fieldPaths:
+    - spec.rules.0.http.paths.0.backend.service.name
+- source:
+    kind: ConfigMap
+    name: kustomize
+    fieldPath: data.GANGWAY_HOST
+  targets:
+  - select:
+      kind: Ingress
+      name: gangway
+    fieldPaths:
+    - spec.rules.0.host
+- source:
+    kind: ConfigMap
+    name: kustomize
+    fieldPath: data.GANGWAY_PATH
+  targets:
+  - select:
+      kind: Ingress
+      name: gangway
+    fieldPaths:
+    - spec.rules.0.http.paths.0.path

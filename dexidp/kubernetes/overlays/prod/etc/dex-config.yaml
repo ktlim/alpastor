@@ -212,6 +212,13 @@ staticClients:
   - http://localhost:8000
   - http://localhost:18000
   secret: {{ with secret "secret/rubin/rubin-jenkins-control/kubernetes" }}{{ index .Data.data "client-secret" }}{{ end }}
+- name: vcluster--usdf-oga-dmz-dev
+  id: vcluster--usdf-oga-dmz-dev
+  redirectURIs:
+  - https://k8s.slac.stanford.edu/usdf-oga-dmz-dev/callback
+  - http://localhost:8000
+  - http://localhost:18000
+  secret: {{ with secret "secret/rubin/usdf-oga-dmz-dev/kubernetes" }}{{ index .Data.data "client-secret" }}{{ end }}
 - name: vcluster--coact--dev
   id: vcluster--coact--dev
   redirectURIs:

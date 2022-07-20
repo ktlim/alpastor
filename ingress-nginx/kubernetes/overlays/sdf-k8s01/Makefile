@@ -1,5 +1,5 @@
 HELM ?= helm
-INGRESS_NGINX_VERSION ?= 4.0.17
+INGRESS_NGINX_VERSION ?= 4.1.4
 NS ?= ingress-nginx
 CLUSTER_NAME ?= sdf-k8s01
 

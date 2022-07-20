@@ -1,4 +1,4 @@
-namespace: vcluster--usdf-butler
+namespace: ${NAMESPACE}
 
 resources:
 - gangway.yaml
@@ -7,11 +7,11 @@ resources:
 configMapGenerator:
 - name: kustomize
   literals:
-  - NAME=usdf-butler
-  - API_HOST=k8s-usdf-butler.slac.stanford.edu
-  - GANGWAY_HOST=k8s.slac.stanford.edu
-  - GANGWAY_PATH=/usdf-butler
-  - SERVICE_NAME=vcluster--usdf-butler
+  - NAME=${NAME}
+  - API_HOST=${API_HOST}
+  - GANGWAY_HOST=${GANGWAY_HOST}
+  - GANGWAY_PATH=${GANGWAY_PATH}
+  - SERVICE_NAME=${SERVICE_NAME}
 - name: templates
   files:
   - etc/templates/commandline.tmpl

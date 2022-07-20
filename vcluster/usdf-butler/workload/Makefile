@@ -1,4 +1,5 @@
 
+CNPG_VERSION ?= 1.16
 
 
 update-zalando:
@@ -22,3 +23,9 @@ pgbouncer:
 	docker build . -f Dockerfile.pgbouncer -t slaclab/pgbouncer:master-22
 	docker push slaclab/pgbouncer:master-22
 
+
+
+
+
+cnpg-operator:
+	curl -L https://raw.githubusercontent.com/cloudnative-pg/cloudnative-pg/release-$(CNPG_VERSION)/releases/cnpg-$(CNPG_VERSION).0.yaml > cnpg-operator.yaml

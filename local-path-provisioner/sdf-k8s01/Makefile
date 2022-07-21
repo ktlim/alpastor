@@ -28,7 +28,13 @@ rubin: setup-helm
 	$(call helm,'sdf-group-rubin-scratch')
 	$(call helm,'sdf-group-lsst')
 
-update: home supercdms ard rubin
+cryoem-dev: setup-helm
+	$(call helm,'sdf-group-cryoem-dev')
+
+cryoem: setup-helm
+	$(call helm,'sdf-group-cryoem')
+
+update: home supercdms ard rubin cryoem-dev cryoem
 
 apply:
 	kubectl apply -k .

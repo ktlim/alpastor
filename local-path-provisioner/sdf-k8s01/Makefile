@@ -30,6 +30,7 @@ rubin: setup-helm
 
 cryoem-dev: setup-helm
 	$(call helm,'sdf-group-cryoem-dev')
+	$(call helm,'sdf-group-cryoem-dev-redis')
 
 cryoem: setup-helm
 	$(call helm,'sdf-group-cryoem')

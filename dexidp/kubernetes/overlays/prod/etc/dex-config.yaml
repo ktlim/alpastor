@@ -121,6 +121,13 @@ staticClients:
   redirectURIs:
   - https://usdf-rsp.slac.stanford.edu/login
   secret: {{ with secret "secret/rubin/usdf-rsp/gafaelfawr" }}{{ index .Data.data "oidc-client-secret" }}{{ end }}
+- name: vcluster--k8s-sandbox
+  id: vcluster--k8s-sandbox
+  redirectURIs:
+  - https://k8s.slac.stanford.edu/k8s-sandbox/callback
+  - http://localhost:8000
+  - http://localhost:18000
+  secret: {{ with secret "secret/tid/k8s-sandbox/kubernetes" }}{{ index .Data.data "client-secret" }}{{ end }}
 - name: vcluster--ard
   id: vcluster--ard
   redirectURIs:

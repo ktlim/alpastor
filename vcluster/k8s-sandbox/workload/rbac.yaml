@@ -15,7 +15,7 @@ subjects:
   name: ovlasova@slac.stanford.edu
   apiGroup: rbac.authorization.k8s.io
 - kind: User
-  name: yuyigao@slac.stanford.edu
+  name: yuyiguo@slac.stanford.edu
   apiGroup: rbac.authorization.k8s.io
 - kind: User
   name: dollinge@slac.stanford.edu

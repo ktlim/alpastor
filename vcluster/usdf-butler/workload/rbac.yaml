@@ -12,10 +12,16 @@ subjects:
   name: ytl@slac.stanford.edu
   apiGroup: rbac.authorization.k8s.io
 - kind: User
-  name: ppascual@slac.stanford.edu
+  name: ovlasova@slac.stanford.edu
   apiGroup: rbac.authorization.k8s.io
 - kind: User
-  name: ovlasova@slac.stanford.edu
+  name: yuyiguo@slac.stanford.edu
+  apiGroup: rbac.authorization.k8s.io
+- kind: User
+  name: dollinge@slac.stanford.edu
+  apiGroup: rbac.authorization.k8s.io
+- kind: User
+  name: bjwhite@slac.stanford.edu
   apiGroup: rbac.authorization.k8s.io
 roleRef:
   kind: ClusterRole
@@ -30,13 +36,7 @@ metadata:
   name: admin
 subjects:
 - kind: User
-  name: ywangw@slac.stanford.edu
-  apiGroup: rbac.authorization.k8s.io
-- kind: User
-  name: bjwhiteslac.stanford.edu
-  apiGroup: rbac.authorization.k8s.io
-- kind: User
-  name: yuyiguo@slac.stanford.edu
+  name: ppascual@slac.stanford.edu
   apiGroup: rbac.authorization.k8s.io
 roleRef:
   kind: ClusterRole

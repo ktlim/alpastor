@@ -34,6 +34,7 @@ cryoem-dev: setup-helm
 
 cryoem: setup-helm
 	$(call helm,'sdf-group-cryoem')
+	$(call helm,'sdf-group-cryoem-exp')
 
 update: home supercdms ard rubin cryoem-dev cryoem
 

@@ -4,6 +4,8 @@ kind: PersistentVolume
 metadata:
   name: srv-cryoem-tem1
 spec:
+  capacity:
+    storage: 500Gi
   volumeMode: Filesystem # Mount volume into Pod as a directory.
   accessModes:
   - ReadWriteMany
@@ -27,6 +29,8 @@ kind: PersistentVolume
 metadata:
   name: srv-cryoem-tem2
 spec:
+  capacity:
+    storage: 500Gi
   volumeMode: Filesystem # Mount volume into Pod as a directory.
   accessModes:
   - ReadWriteMany
@@ -50,13 +54,15 @@ kind: PersistentVolume
 metadata:
   name: srv-cryoem-tem3
 spec:
+  capacity:
+    storage: 500Gi
   volumeMode: Filesystem # Mount volume into Pod as a directory.
   accessModes:
   - ReadWriteMany
   persistentVolumeReclaimPolicy: Retain
-  storageClassName: srv-cryoem-tem1
+  storageClassName: srv-cryoem-tem3
   local:
-    path: /srv/cryoem/tem1 # Path to the directory this PV refers to.
+    path: /srv/cryoem/tem3 # Path to the directory this PV refers to.
   nodeAffinity: # nodeAffinity is required when using local volumes.
     required:
       nodeSelectorTerms:
@@ -74,6 +80,8 @@ kind: PersistentVolume
 metadata:
   name: srv-cryoem-tem4
 spec:
+  capacity:
+    storage: 500Gi
   volumeMode: Filesystem # Mount volume into Pod as a directory.
   accessModes:
   - ReadWriteMany
@@ -97,6 +105,8 @@ kind: PersistentVolume
 metadata:
   name: srv-cryoem-temalpha
 spec:
+  capacity:
+    storage: 500Gi
   volumeMode: Filesystem # Mount volume into Pod as a directory.
   accessModes:
   - ReadWriteMany
@@ -121,6 +131,8 @@ kind: PersistentVolume
 metadata:
   name: srv-cryoem-tembeta
 spec:
+  capacity:
+    storage: 500Gi
   volumeMode: Filesystem # Mount volume into Pod as a directory.
   accessModes:
   - ReadWriteMany
@@ -145,6 +157,8 @@ kind: PersistentVolume
 metadata:
   name: srv-cryoem-temgamma
 spec:
+  capacity:
+    storage: 500Gi
   volumeMode: Filesystem # Mount volume into Pod as a directory.
   accessModes:
   - ReadWriteMany
@@ -169,6 +183,8 @@ kind: PersistentVolume
 metadata:
   name: srv-cryoem-fib1
 spec:
+  capacity:
+    storage: 500Gi
   volumeMode: Filesystem # Mount volume into Pod as a directory.
   accessModes:
   - ReadWriteMany

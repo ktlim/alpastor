@@ -15,7 +15,7 @@ metadata:
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: sdf-group-cryoem-dev
+  name: sdf-group-cryoem-exp
   labels:
     app.kubernetes.io/name: local-path-provisioner
     helm.sh/chart: local-path-provisioner-0.0.22-dev
@@ -30,7 +30,7 @@ data:
           {
             "node": "DEFAULT_PATH_FOR_NON_LISTED_NODES",
             "paths": [
-              "/sdf/group/cryoem/dev/"
+              "/fs/ddn/sdf/group/cryoem/dev/"
             ]
           }
         ]
@@ -60,14 +60,14 @@ data:
 apiVersion: storage.k8s.io/v1
 kind: StorageClass
 metadata:
-  name: sdf-group-cryoem-dev
+  name: sdf-group-cryoem-exp
   labels:
     app.kubernetes.io/name: local-path-provisioner
     helm.sh/chart: local-path-provisioner-0.0.22-dev
     app.kubernetes.io/instance: sdf-group-cryoem-exp
     app.kubernetes.io/version: "v0.0.22-dev"
     app.kubernetes.io/managed-by: Helm
-provisioner: local-path-provisioner.local/sdf-group-cryoem-dev
+provisioner: local-path-provisioner.local/sdf-group-cryoem-exp
 volumeBindingMode: WaitForFirstConsumer
 reclaimPolicy: Delete
 allowVolumeExpansion: true
@@ -154,11 +154,11 @@ spec:
             - --service-account-name
             - sdf-group-cryoem-exp-local-path-provisioner
             - --provisioner-name
-            - local-path-provisioner.local/sdf-group-cryoem-dev
+            - local-path-provisioner.local/sdf-group-cryoem-exp
             - --helper-image
             - "busybox:latest"
             - --configmap-name
-            - sdf-group-cryoem-dev
+            - sdf-group-cryoem-exp
           volumeMounts:
             - name: config-volume
               mountPath: /etc/config/
@@ -170,4 +170,4 @@ spec:
       volumes:
         - name: config-volume
           configMap:
-            name: sdf-group-cryoem-dev
+            name: sdf-group-cryoem-exp

@@ -30,7 +30,7 @@ data:
           {
             "node": "DEFAULT_PATH_FOR_NON_LISTED_NODES",
             "paths": [
-              "/sdf/group/rubin/"
+              "/fs/ddn/sdf/group/rubin/"
             ]
           }
         ]
@@ -46,16 +46,15 @@ data:
     set -eu
     echo "nothing to do"
   helperPod.yaml: |-
-    
     apiVersion: v1
     kind: Pod
     metadata:
       name: helper-pod
     spec:
       containers:
-      - name: helper-pod
-        image: busybox
-        imagePullPolicy: IfNotPresent
+        - name: helper-pod
+          image: busybox:latest
+          imagePullPolicy: Always
 ---
 # Source: local-path-provisioner/templates/storageclass.yaml
 apiVersion: storage.k8s.io/v1

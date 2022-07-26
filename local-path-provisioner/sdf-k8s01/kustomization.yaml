@@ -15,6 +15,7 @@ resources:
 - sdf-group-cryoem-dev-helm.yaml
 - sdf-group-cryoem-helm.yaml
 
+# we need to use our own custom image due to changes in the handling of how we deal with lustre etc.
 images:
 - name: rancher/local-path-provisioner
   newName: slaclab/local-path-provisioner

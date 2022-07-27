@@ -14,6 +14,7 @@ resources:
 - sdf-group-lsst-helm.yaml
 - sdf-group-cryoem-dev-helm.yaml
 - sdf-group-cryoem-helm.yaml
+- sdf-group-cryoem-exp-helm.yaml
 
 # we need to use our own custom image due to changes in the handling of how we deal with lustre etc.
 images:

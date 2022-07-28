@@ -4,19 +4,26 @@ kind: Kustomization
 namespace: monitoring-system
 
 resources:
-- deployment.yaml
-- endpoints.yaml
+- k8s01.yaml
+- sdfhome.yaml
 
 configMapGenerator:
 - name: weka-k8s01
   files:
-  - etc/export.yml
-  - etc/quota-export.yml
+  - etc/k8s01/export.yml
+  - etc/k8s01/quota-export.yml
+- name: weka-sdfhome
+  files:
+  - etc/sdfhome/export.yml
+  - etc/sdfhome/quota-export.yml
 
 secretGenerator:
 - name: weka-k8s01
   files:
-  - auth-token.json=etc/.auth-token.json
+  - auth-token.json=etc/.secrets/auth-token.json.k8s01
+- name: weka-sdfhome
+  files:
+  - auth-token.json=etc/.secrets/auth-token.json.sdfhome
 
 #images:
 #- name: grafana/grafana

@@ -1,0 +1,16 @@
+exporter:
+  listen_port: 8101
+  timeout: 10.0
+  backends_only: True
+  exceeded_only: False
+
+cluster:
+  auth_token_file: /weka/.weka/auth-token.json
+  hosts:
+    - sdfk8s002
+    - sdfk8s003
+    - sdfk8s004
+    - sdfk8s005
+    - sdfk8s006
+  force_https: False   # only 3.10+ clusters support https
+  verify_cert: False  # default cert cannot be verified

@@ -1,0 +1,94 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: weka-sdfhome
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: weka-sdfhome
+  template:
+    metadata:
+      labels:
+        app: weka-sdfhome
+    spec:
+      containers:
+      - name: export
+        image: wekasolutions/export:1.5.7
+        command:
+        - /weka/export
+        - -vvv
+        - -c
+        - /config/export.yml
+        ports:
+        - name: metrics
+          containerPort: 8001
+        volumeMounts:
+        - mountPath: "/config/export.yml"
+          name: config
+          readOnly: true
+          subPath: "export.yml"
+        - mountPath: "/weka/.weka"
+          name: auth
+          readOnly: true
+      - name: quota
+        image: wekasolutions/quota-export:latest
+        command:
+        - /weka/quota-export
+        - -v
+        - -c
+        - /config/quota-export.yml
+        ports:
+        - name: quota
+          containerPort: 8101
+        volumeMounts:
+        - mountPath: "/config/quota-export.yml"
+          name: config
+          readOnly: true
+          subPath: "quota-export.yml"
+        - mountPath: "/weka/.weka"
+          name: auth
+          readOnly: true
+      volumes:
+      - name: config
+        configMap:
+          name: weka-sdfhome
+      - name: auth
+        secret:
+          secretName: weka-sdfhome
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: weka-sdfhome-export
+  annotations:
+    prometheus.io/port: "8001"
+    prometheus.io/scrape: "true"
+spec:
+  ports:
+    - protocol: TCP
+      port: 8001
+      targetPort: 8001
+  selector:
+    app: weka-sdfhome
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    prometheus.io/port: "8101"
+    prometheus.io/scrape: "true"
+  name: weka-sdfhome-quota
+spec:
+  ports:
+    - protocol: TCP
+      port: 8101
+      targetPort: 8101
+  selector:
+    app: weka-sdfhome
+
+---

@@ -1,16 +1,16 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: weka-k8s01
+  name: weka-$FS_NAME
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: weka-k8s01
+      app: weka-$FS_NAME
   template:
     metadata:
       labels:
-        app: weka-k8s01
+        app: weka-$FS_NAME
     spec:
       containers:
       - name: export
@@ -52,9 +52,43 @@ spec:
       volumes:
       - name: config
         configMap:
-          name: weka-k8s01
+          name: weka-$FS_NAME
       - name: auth
         secret:
-          secretName: weka-k8s01
+          secretName: weka-$FS_NAME
 
+---
 
+apiVersion: v1
+kind: Service
+metadata:
+  name: weka-$FS_NAME-export
+  annotations:
+    prometheus.io/port: "8001"
+    prometheus.io/scrape: "true"
+spec:
+  ports:
+    - protocol: TCP
+      port: 8001
+      targetPort: 8001
+  selector:
+    app: weka-$FS_NAME
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    prometheus.io/port: "8101"
+    prometheus.io/scrape: "true"
+  name: weka-$FS_NAME-quota
+spec:
+  ports:
+    - protocol: TCP
+      port: 8101
+      targetPort: 8101
+  selector:
+    app: weka-$FS_NAME
+
+---

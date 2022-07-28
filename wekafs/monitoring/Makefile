@@ -1,13 +1,22 @@
+FS_NAME ?= new_fs
 
-SECRET_PATH ?= secret/tid/storage/weka/k8s01/monitoring
-
-passwords:
-	vault kv get --field=auth-token.json -format=table $(SECRET_PATH) > etc/.auth-token.json
+get-vault-secrets:
+	mkdir etc/.secrets -p
+	vault kv get --field=auth-token.json -format=table secret/tid/storage/weka/k8s01/monitoring > etc/.secrets/auth-token.json.k8s01
+	vault kv get --field=auth-token.json -format=table secret/tid/storage/weka/sdfhome/monitoring > etc/.secrets/auth-token.json.sdfhome
 
 clean-passwords:
-	rm etc/.auth-token.json
+	rm -rf etc/.secrets
 
-monitoring:
+run-apply:
 	kubectl apply -k . 
 
-apply: passwords monitoring clean-passwords 
+# generate a new set of manifests for a file system
+# must til create the cm and secrets
+template:
+	FS_NAME=$(FS_NAME) envsubst < template.yaml > $(FS_NAME).yaml
+
+dump:
+	kubectl kustomize . | yh
+
+apply: get-vault-secrets run-apply clean-passwords 

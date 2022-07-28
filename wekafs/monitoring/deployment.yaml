@@ -1,0 +1,60 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: weka-k8s01
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: weka-k8s01
+  template:
+    metadata:
+      labels:
+        app: weka-k8s01
+    spec:
+      containers:
+      - name: export
+        image: wekasolutions/export:latest
+        command:
+        - /weka/export
+        - -v
+        - -c
+        - /config/export.yml
+        ports:
+        - name: metrics
+          containerPort: 8001
+        volumeMounts:
+        - mountPath: "/config/export.yml"
+          name: config
+          readOnly: true
+          subPath: "export.yml"
+        - mountPath: "/weka/.weka"
+          name: auth
+          readOnly: true
+      - name: quota
+        image: wekasolutions/quota-export:latest
+        command:
+        - /weka/quota-export
+        - -v
+        - -c
+        - /config/quota-export.yml
+        ports:
+        - name: quota
+          containerPort: 8101
+        volumeMounts:
+        - mountPath: "/config/quota-export.yml"
+          name: config
+          readOnly: true
+          subPath: "quota-export.yml"
+        - mountPath: "/weka/.weka"
+          name: auth
+          readOnly: true
+      volumes:
+      - name: config
+        configMap:
+          name: weka-k8s01
+      - name: auth
+        secret:
+          secretName: weka-k8s01
+
+

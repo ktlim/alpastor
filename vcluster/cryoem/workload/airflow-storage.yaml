@@ -1,0 +1,204 @@
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: srv-cryoem-tem1
+spec:
+  capacity:
+    storage: 500Gi
+  volumeMode: Filesystem # Mount volume into Pod as a directory.
+  accessModes:
+  - ReadWriteMany
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: srv-cryoem-tem1
+  local:
+    path: /srv/cryoem/tem1 # Path to the directory this PV refers to.
+  nodeAffinity: # nodeAffinity is required when using local volumes.
+    required:
+      nodeSelectorTerms:
+      - matchExpressions:
+        - key: kubernetes.io/hostname
+          operator: In
+          values:
+          - sdfk8sext001
+          - sdfk8sext002
+
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: srv-cryoem-tem2
+spec:
+  capacity:
+    storage: 500Gi
+  volumeMode: Filesystem # Mount volume into Pod as a directory.
+  accessModes:
+  - ReadWriteMany
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: srv-cryoem-tem2
+  local:
+    path: /srv/cryoem/tem2 # Path to the directory this PV refers to.
+  nodeAffinity: # nodeAffinity is required when using local volumes.
+    required:
+      nodeSelectorTerms:
+      - matchExpressions:
+        - key: kubernetes.io/hostname
+          operator: In
+          values:
+          - sdfk8sext001
+          - sdfk8sext002
+
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: srv-cryoem-tem3
+spec:
+  capacity:
+    storage: 500Gi
+  volumeMode: Filesystem # Mount volume into Pod as a directory.
+  accessModes:
+  - ReadWriteMany
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: srv-cryoem-tem3
+  local:
+    path: /srv/cryoem/tem3 # Path to the directory this PV refers to.
+  nodeAffinity: # nodeAffinity is required when using local volumes.
+    required:
+      nodeSelectorTerms:
+      - matchExpressions:
+        - key: kubernetes.io/hostname
+          operator: In
+          values:
+          - sdfk8sext001
+          - sdfk8sext002
+
+
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: srv-cryoem-tem4
+spec:
+  capacity:
+    storage: 500Gi
+  volumeMode: Filesystem # Mount volume into Pod as a directory.
+  accessModes:
+  - ReadWriteMany
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: srv-cryoem-tem4
+  local:
+    path: /srv/cryoem/tem4 # Path to the directory this PV refers to.
+  nodeAffinity: # nodeAffinity is required when using local volumes.
+    required:
+      nodeSelectorTerms:
+      - matchExpressions:
+        - key: kubernetes.io/hostname
+          operator: In
+          values:
+          - sdfk8sext001
+          - sdfk8sext002
+
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: srv-cryoem-temalpha
+spec:
+  capacity:
+    storage: 500Gi
+  volumeMode: Filesystem # Mount volume into Pod as a directory.
+  accessModes:
+  - ReadWriteMany
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: srv-cryoem-temalpha
+  local:
+    path: /srv/cryoem/temalpha # Path to the directory this PV refers to.
+  nodeAffinity: # nodeAffinity is required when using local volumes.
+    required:
+      nodeSelectorTerms:
+      - matchExpressions:
+        - key: kubernetes.io/hostname
+          operator: In
+          values:
+          - sdfk8sext001
+          - sdfk8sext002
+
+
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: srv-cryoem-tembeta
+spec:
+  capacity:
+    storage: 500Gi
+  volumeMode: Filesystem # Mount volume into Pod as a directory.
+  accessModes:
+  - ReadWriteMany
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: srv-cryoem-tembeta
+  local:
+    path: /srv/cryoem/tembeta # Path to the directory this PV refers to.
+  nodeAffinity: # nodeAffinity is required when using local volumes.
+    required:
+      nodeSelectorTerms:
+      - matchExpressions:
+        - key: kubernetes.io/hostname
+          operator: In
+          values:
+          - sdfk8sext001
+          - sdfk8sext002
+
+
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: srv-cryoem-temgamma
+spec:
+  capacity:
+    storage: 500Gi
+  volumeMode: Filesystem # Mount volume into Pod as a directory.
+  accessModes:
+  - ReadWriteMany
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: srv-cryoem-temgamma
+  local:
+    path: /srv/cryoem/temgamma # Path to the directory this PV refers to.
+  nodeAffinity: # nodeAffinity is required when using local volumes.
+    required:
+      nodeSelectorTerms:
+      - matchExpressions:
+        - key: kubernetes.io/hostname
+          operator: In
+          values:
+          - sdfk8sext001
+          - sdfk8sext002
+
+
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: srv-cryoem-fib1
+spec:
+  capacity:
+    storage: 500Gi
+  volumeMode: Filesystem # Mount volume into Pod as a directory.
+  accessModes:
+  - ReadWriteMany
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: srv-cryoem-fib1
+  local:
+    path: /srv/cryoem/fib1 # Path to the directory this PV refers to.
+  nodeAffinity: # nodeAffinity is required when using local volumes.
+    required:
+      nodeSelectorTerms:
+      - matchExpressions:
+        - key: kubernetes.io/hostname
+          operator: In
+          values:
+          - sdfk8sext001
+          - sdfk8sext002
+

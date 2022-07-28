@@ -10,8 +10,8 @@ enableHA: true
 
 vcluster:
   extraArgs:
-  - --oidc-issuer-url=https://dex.slac.stanford.edu
-  - --oidc-client-id=vcluster--cryoem
+  - --oidc-issuer-url=${OIDC_IDP}
+  - --oidc-client-id=${NAMESPACE}
   - --oidc-username-claim=name
   - --oidc-groups-claim=groups
 
@@ -38,16 +38,16 @@ controller:
 
 # Scale up api server
 api:
-  image: k8s.gcr.io/kube-apiserver:v1.23.2
+  image: k8s.gcr.io/kube-apiserver:${K8S_VERSION}
   replicas: 1
   extraArgs: 
-  - --oidc-issuer-url=https://dex.slac.stanford.edu
-  - --oidc-client-id=vcluster--cryoem
+  - --oidc-issuer-url=${OIDC_IDP}
+  - --oidc-client-id=${NAMESPACE}
   - --oidc-username-claim=email
   - --oidc-groups-claim=groups
 
 controller:
-  image: k8s.gcr.io/kube-controller-manager:v1.23.2
+  image: k8s.gcr.io/kube-controller-manager:${K8S_VERSION}
 
 sync:
   nodes:

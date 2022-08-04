@@ -15,7 +15,7 @@ metadata:
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: sdf-home
+  name: fs-ddn-sdf-home
   labels:
     app.kubernetes.io/name: local-path-provisioner
     helm.sh/chart: local-path-provisioner-0.0.22-dev
@@ -60,14 +60,14 @@ data:
 apiVersion: storage.k8s.io/v1
 kind: StorageClass
 metadata:
-  name: sdf-home
+  name: fs-ddn-sdf-home
   labels:
     app.kubernetes.io/name: local-path-provisioner
     helm.sh/chart: local-path-provisioner-0.0.22-dev
     app.kubernetes.io/instance: fs-ddn-sdf-home
     app.kubernetes.io/version: "v0.0.22-dev"
     app.kubernetes.io/managed-by: Helm
-provisioner: local-path-provisioner.local/sdf-home
+provisioner: local-path-provisioner.local/fs-ddn-sdf-home
 volumeBindingMode: WaitForFirstConsumer
 reclaimPolicy: Delete
 allowVolumeExpansion: true
@@ -154,11 +154,11 @@ spec:
             - --service-account-name
             - fs-ddn-sdf-home-local-path-provisioner
             - --provisioner-name
-            - local-path-provisioner.local/sdf-home
+            - local-path-provisioner.local/fs-ddn-sdf-home
             - --helper-image
             - "busybox:latest"
             - --configmap-name
-            - sdf-home
+            - fs-ddn-sdf-home
           volumeMounts:
             - name: config-volume
               mountPath: /etc/config/
@@ -170,4 +170,4 @@ spec:
       volumes:
         - name: config-volume
           configMap:
-            name: sdf-home
+            name: fs-ddn-sdf-home

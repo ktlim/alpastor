@@ -30,7 +30,7 @@ data:
           {
             "node": "DEFAULT_PATH_FOR_NON_LISTED_NODES",
             "paths": [
-              "/fs/ddn/sdf/group/supercdms/"
+              "/sdf/group/supercdms/"
             ]
           }
         ]

@@ -1,5 +1,5 @@
 nodePathMap:
-  - {node: DEFAULT_PATH_FOR_NON_LISTED_NODES, paths: [/fs/ddn/sdf/home/]}
+  - {node: DEFAULT_PATH_FOR_NON_LISTED_NODES, paths: [/sdf/home/]}
 
 storageClass:
   create: true

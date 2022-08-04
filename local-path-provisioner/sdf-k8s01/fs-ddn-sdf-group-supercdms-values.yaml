@@ -1,17 +1,17 @@
 nodePathMap:
-  - {node: DEFAULT_PATH_FOR_NON_LISTED_NODES, paths: [/sdf/group/ard/]}
+  - {node: DEFAULT_PATH_FOR_NON_LISTED_NODES, paths: [/fs/ddn/sdf/group/supercdms/]}
 
 storageClass:
   create: true
-  name: sdf-group-ard
+  name: fs-ddn-sdf-group-supercdms
   # bit of a quandry here: We do not want the PV's to be left around, but technically we do not delete any data after the PV is destroyed. Retain means that the data is lect around, however, keeps the PV around too. Delete will remove the PV, but technically means that teh data should also be removed. 
   # we choose Delete just so we dont' have to manage all the PV's around, but need to communicate to users that data is not actually deleted.
   #reclaimPolicy: Retain
   reclaimPolicy: Delete
-  provisionerName: local-path-provisioner.local/sdf-group-ard
+  provisionerName: local-path-provisioner.local/fs-ddn-sdf-group-supercdms
 
 configmap:
-  name: sdf-group-ard
+  name: fs-ddn-sdf-group-supercdms
 
 #image:
 #  pullPolicy: Always

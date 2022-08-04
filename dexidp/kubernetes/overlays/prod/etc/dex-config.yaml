@@ -20,6 +20,8 @@ expiry:
     reuseInterval: "3s"
     validIfNotUsedFor: "168h"
     absoluteLifetime: "720h"
+oauth2:
+  skipApprovalScreen: true
 connectors:
 #- type: oidc
 #  id: cilogon
@@ -37,6 +39,25 @@ connectors:
 #    # no email, as we need to overload it from the org.cilogon.userinfo scope
 #    claimMapping:
 #      email: eppn
+- type: ldap
+  id: unix
+  name: S3DF
+  config:
+    host: ldap-unix.slac.stanford.edu:636
+    insecureSkipVerify: true
+    userSearch:
+      baseDN: ou=Accounts,dc=slac,dc=stanford,dc=edu
+      filter: '(objectClass=person)'
+      username: uid
+      idAttr: gecos
+      emailAttr: mail
+      nameAttr: uid
+    groupSearch:
+      baseDN: ou=Group,dc=slac,dc=stanford,dc=edu
+      filter: "(objectclass=posixGroup)"
+      userAttr: uid
+      groupAttr: memberUid
+      nameAttr: cn
 - type: saml
   id: saml
   name: SLAC SSO
@@ -81,6 +102,13 @@ staticClients:
   - 'http://localhost:8250/oidc/callback'
   - 'https://vault.slac.stanford.edu/ui/vault/auth/oidc/oidc/callback'
   secret: {{ with secret "secret/dexidp/staticClients/vault" }}{{ .Data.data.secret }}{{ end }}
+- name: vcluster--s3df-auth
+  id: vcluster--s3df-auth
+  redirectURIs:
+  - https://k8s.slac.stanford.edu/s3df-auth/callback
+  - http://localhost:8000
+  - http://localhost:18000
+  secret: {{ with secret "secret/tid/sdf/s3df-auth/kubernetes" }}{{ index .Data.data "client-secret" }}{{ end }}
 - name: rubin-data-dev
   id: {{ with secret "secret/dexidp/staticClients/rubin-data-dev" }}{{ .Data.data.id }}{{ end }}
   redirectURIs:
@@ -100,6 +128,7 @@ staticClients:
   id: vouch
   redirectURIs:
   - https://vouch.slac.stanford.edu/auth
+  - https://s3df-vouch.slac.stanford.edu/auth
   secret: {{ with secret "secret/dexidp/staticClients/vouch" }}{{ .Data.data.secret }}{{ end }}
 - name: vouch-dev
   id: vouch-dev
@@ -226,6 +255,13 @@ staticClients:
   - http://localhost:8000
   - http://localhost:18000
   secret: {{ with secret "secret/rubin/rubin-jenkins-control/kubernetes" }}{{ index .Data.data "client-secret" }}{{ end }}
+- name: vcluster--usdf-oga-dmz
+  id: vcluster--usdf-oga-dmz
+  redirectURIs:
+  - https://k8s.slac.stanford.edu/usdf-oga-dmz/callback
+  - http://localhost:8000
+  - http://localhost:18000
+  secret: {{ with secret "secret/rubin/usdf-oga-dmz/kubernetes" }}{{ index .Data.data "client-secret" }}{{ end }}
 - name: vcluster--usdf-oga-dmz-dev
   id: vcluster--usdf-oga-dmz-dev
   redirectURIs:

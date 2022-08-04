@@ -9,26 +9,28 @@ web:
   #tlsKey: /etc/dex/tls/tls.key
 telemetry:
   http: 0.0.0.0:5558
+oauth2:
+  skipApprovalScreen: true
 connectors:
-#- type: ldap
-#  id: unix
-#  name: Unix LDAP
-#  config:
-#    host: ldap-unix.slac.stanford.edu:636
-#    insecureSkipVerify: true
-#    userSearch:
-#      baseDN: ou=Accounts,dc=slac,dc=stanford,dc=edu
-#      filter: ''
-#      username: uid
-#      idAttr: uid
-#      emailAttr: mail
-#      nameAttr: gecos
-#    groupSearch:
-#      baseDN: ou=Group,dc=slac,dc=stanford,dc=edu
-#      filter: "(objectclass=posixGroup)"
-#      userAttr: uid
-#      groupAttr: memberUid
-#      nameAttr: cn
+- type: ldap
+  id: unix
+  name: Unix LDAP
+  config:
+    host: ldap-unix.slac.stanford.edu:636
+    insecureSkipVerify: true
+    userSearch:
+      baseDN: ou=Accounts,dc=slac,dc=stanford,dc=edu
+      filter: '(objectClass=person)'
+      username: uid
+      idAttr: gecos
+      emailAttr: mail
+      nameAttr: uid
+    groupSearch:
+      baseDN: ou=Group,dc=slac,dc=stanford,dc=edu
+      filter: "(objectclass=posixGroup)"
+      userAttr: uid
+      groupAttr: memberUid
+      nameAttr: cn
 #- type: ldap
 #  id: ad
 #  name: Windows LDAP

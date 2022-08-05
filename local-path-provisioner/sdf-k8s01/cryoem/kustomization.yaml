@@ -1,0 +1,7 @@
+resources:
+- fs-ddn-sdf-group-cryoem-dev-helm.yaml
+- fs-ddn-sdf-group-cryoem-exp-helm.yaml
+- fs-ddn-sdf-group-cryoem-helm.yaml
+- sdf-group-cryoem-dev-helm.yaml
+- sdf-group-cryoem-exp-helm.yaml
+- sdf-group-cryoem-helm.yaml

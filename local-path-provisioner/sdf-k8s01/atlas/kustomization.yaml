@@ -1,0 +1,3 @@
+resources:
+- fs-ddn-sdf-group-atlas-helm.yaml
+- sdf-group-atlas-helm.yaml

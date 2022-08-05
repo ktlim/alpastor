@@ -1,0 +1,3 @@
+resources:
+- fs-ddn-sdf-group-ard-helm.yaml
+- sdf-group-ard-helm.yaml

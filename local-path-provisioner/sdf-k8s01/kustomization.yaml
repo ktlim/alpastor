@@ -3,30 +3,15 @@ kind: Kustomization
 
 namespace: local-path-storage
 
+bases:
+#- common
+#- cryoem
+#- ard
+#- supercdms
+- rubin
+
 resources:
 - ns.yaml
-- sdf-home-helm.yaml
-- sdf-group-atlas-helm.yaml
-- sdf-group-supercdms-helm.yaml
-- sdf-group-ard-helm.yaml
-- sdf-group-rubin-helm.yaml
-- sdf-group-rubin-datasets-helm.yaml
-- sdf-group-rubin-scratch-helm.yaml
-- sdf-group-lsst-helm.yaml
-- sdf-group-cryoem-dev-helm.yaml
-- sdf-group-cryoem-helm.yaml
-- sdf-group-cryoem-exp-helm.yaml
-- fs-ddn-sdf-home-helm.yaml
-- fs-ddn-sdf-group-atlas-helm.yaml
-- fs-ddn-sdf-group-supercdms-helm.yaml
-- fs-ddn-sdf-group-ard-helm.yaml
-- fs-ddn-sdf-group-rubin-helm.yaml
-- fs-ddn-sdf-group-rubin-datasets-helm.yaml
-- fs-ddn-sdf-group-rubin-scratch-helm.yaml
-- fs-ddn-sdf-group-lsst-helm.yaml
-- fs-ddn-sdf-group-cryoem-dev-helm.yaml
-- fs-ddn-sdf-group-cryoem-helm.yaml
-- fs-ddn-sdf-group-cryoem-exp-helm.yaml
 
 # we need to use our own custom image due to changes in the handling of how we deal with lustre etc.
 images:

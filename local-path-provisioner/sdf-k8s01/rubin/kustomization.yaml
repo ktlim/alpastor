@@ -1,3 +1,4 @@
 resources:
 - sdf-data-rubin-helm.yaml
 - sdf-group-rubin-helm.yaml
+- fs-nfs-helm.yaml

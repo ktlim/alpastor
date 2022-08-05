@@ -4,10 +4,10 @@ kind: Kustomization
 namespace: local-path-storage
 
 bases:
-#- common
-#- cryoem
-#- ard
-#- supercdms
+- common
+- cryoem
+- ard
+- supercdms
 - rubin
 
 resources:

@@ -1,3 +1,4 @@
 resources:
 - sdf-home-helm.yaml
 - fs-ddn-sdf-home-helm.yaml
+- sdf-scratch-helm.yaml

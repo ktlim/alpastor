@@ -15,9 +15,9 @@ export API_HOST=${API_NAME}.slac.stanford.edu
 
 export SERVICE_NAME=${NAMESPACE}
 
-export SECRET_PATH=secret/tid/${NAME}/kubernetes
+export SECRET_PATH=secret/tid/sdf/${NAME}/kubernetes
 
 export OIDC_IDP=https://dex.slac.stanford.edu
 
-export VCLUSTER_VERSION=v0.9.1
+export VCLUSTER_VERSION=v0.10.2
 export K8S_VERSION=v1.23.2

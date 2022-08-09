@@ -8,7 +8,7 @@ VCLUSTER_CHART ?= v0.10.2
 make:
 	source ./env && envsubst < Makefile.tmpl > Makefile
 
-generate: make
+generate:
 	source ./env && envsubst < kustomization.yaml.tmpl > kustomization.yaml 
 	source ./env && envsubst < vcluster-values.yaml.tmpl > vcluster-values.yaml
 	source ./env && CLIENTID=$(shell vault kv get --field=client-id -format=json $(SECRET_PATH)) CLIENTSECRET=$(shell vault kv get --field=client-secret -format=json $(SECRET_PATH)) envsubst < etc/gangway.yaml > etc/.gangway.yaml
